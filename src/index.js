@@ -18,7 +18,7 @@ import {
 /**
  * Component to take Gravity Form graphQL data and turn into
  * a fully functional form.
- * @param {mixed} formData Form dataset from graphQL
+ * @param {mixed} data Form dataset from graphQL
  */
 const GravityFormForm = ({
   data,
@@ -216,12 +216,17 @@ export const GravityFormFields = graphql`
         type
         ...CaptchaField
         ...CheckboxField
+        ...DateField
+        ...EmailField
         ...HtmlField
-        ...MultiselectField
+        ...HiddenField
+        ...MultiSelectField
         ...RadioField
         ...SelectField
-        ...TextField
         ...TextAreaField
+        ...TextField
+        ...NumberField
+        ...PhoneField
       }
     }
   }

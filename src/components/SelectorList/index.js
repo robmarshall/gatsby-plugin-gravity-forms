@@ -10,7 +10,6 @@ import InputWrapper from "../InputWrapper";
 // TODO: Enable Select All Choice
 const SelectorList = ({ fieldData, name, ...wrapProps }) => {
   const { id, choices, cssClass, isRequired, size, type } = fieldData;
-  const options = []; //JSON.parse(choices);
 
   const { register, errors } = useFormContext();
 
@@ -24,7 +23,7 @@ const SelectorList = ({ fieldData, name, ...wrapProps }) => {
       {...wrapProps}
     >
       <ul className={`gfield_${type}`} id={name}>
-        {options.map(({ isSelected, text, value }, index) => {
+        {choices.map(({ isSelected, text, value }, index) => {
           const choiceID = index + 1;
           return (
             <li key={`${name}-${index + 1}`}>
@@ -64,7 +63,7 @@ export default SelectorList;
 
 SelectorList.propTypes = {
   fieldData: PropTypes.shape({
-    choices: PropTypes.string,
+    choices: PropTypes.array,
     cssClass: PropTypes.string,
     id: PropTypes.number,
     isRequired: PropTypes.bool,

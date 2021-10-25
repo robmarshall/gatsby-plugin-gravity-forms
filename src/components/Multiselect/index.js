@@ -63,8 +63,8 @@ Multiselect.propTypes = {
   wrapProps: PropTypes.object,
 };
 
-export const MultiselectField = graphql`
-  fragment MultiselectField on WpMultiselectField {
+export const MultiSelectField = graphql`
+  fragment MultiSelectField on WpMultiSelectField {
     adminLabel
     adminOnly
     allowsPrepopulate

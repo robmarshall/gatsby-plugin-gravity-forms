@@ -130,3 +130,210 @@ export const TextField = graphql`
     }
   }
 `;
+
+export const DateField = graphql`
+  fragment DateField on WpDateField {
+    adminLabel
+    adminOnly
+    allowsPrepopulate
+    calendarIconType
+    calendarIconUrl
+    conditionalLogic {
+      actionType
+      logicType
+      rules {
+        fieldId
+        operator
+        value
+      }
+    }
+    cssClass
+    dateFormat
+    dateType
+    defaultValue
+    description
+    descriptionPlacement
+    errorMessage
+    formId
+    id
+    inputName
+    inputs {
+      customLabel
+      defaultValue
+      id
+      label
+      placeholder
+    }
+    isRequired
+    label
+    layoutGridColumnSpan
+    layoutSpacerGridColumnSpan
+    noDuplicates
+    pageNumber
+    placeholder
+    size
+    subLabelPlacement
+    type
+    value
+    visibility
+  }
+`;
+
+export const EmailField = graphql`
+  fragment EmailField on WpEmailField {
+    adminLabel
+    adminOnly
+    allowsPrepopulate
+    autocompleteAttribute
+    conditionalLogic {
+      actionType
+      logicType
+      rules {
+        fieldId
+        operator
+        value
+      }
+    }
+    cssClass
+    defaultValue
+    description
+    descriptionPlacement
+    emailConfirmEnabled
+    enableAutocomplete
+    errorMessage
+    formId
+    id
+    inputName
+    inputs {
+      autocompleteAttribute
+      customLabel
+      defaultValue
+      id
+      label
+      name
+      placeholder
+    }
+    isRequired
+    label
+    layoutGridColumnSpan
+    layoutSpacerGridColumnSpan
+    noDuplicates
+    pageNumber
+    placeholder
+    size
+    subLabelPlacement
+    type
+    value
+    visibility
+  }
+`;
+
+export const HiddenField = graphql`
+  fragment HiddenField on WpHiddenField {
+    allowsPrepopulate
+    conditionalLogic {
+      actionType
+      logicType
+      rules {
+        fieldId
+        operator
+        value
+      }
+    }
+    cssClass
+    defaultValue
+    formId
+    id
+    inputName
+    label
+    layoutGridColumnSpan
+    layoutSpacerGridColumnSpan
+    pageNumber
+    size
+    type
+    value
+  }
+`;
+
+export const NumberField = graphql`
+  fragment NumberField on WpNumberField {
+    adminLabel
+    adminOnly
+    allowsPrepopulate
+    autocompleteAttribute
+    calculationFormula
+    calculationRounding
+    conditionalLogic {
+      actionType
+      logicType
+      rules {
+        fieldId
+        operator
+        value
+      }
+    }
+    cssClass
+    defaultValue
+    description
+    descriptionPlacement
+    enableAutocomplete
+    enableCalculation
+    errorMessage
+    formId
+    id
+    inputName
+    isRequired
+    label
+    layoutGridColumnSpan
+    layoutSpacerGridColumnSpan
+    noDuplicates
+    numberFormat
+    pageNumber
+    placeholder
+    rangeMax
+    rangeMin
+    size
+    type
+    value
+    visibility
+  }
+`;
+
+export const PhoneField = graphql`
+  fragment PhoneField on WpPhoneField {
+    adminLabel
+    adminOnly
+    allowsPrepopulate
+    autocompleteAttribute
+    conditionalLogic {
+      actionType
+      logicType
+      rules {
+        fieldId
+        operator
+        value
+      }
+    }
+    cssClass
+    defaultValue
+    description
+    descriptionPlacement
+    enableAutocomplete
+    errorMessage
+    formId
+    id
+    inputName
+    isRequired
+    label
+    layoutGridColumnSpan
+    layoutSpacerGridColumnSpan
+    noDuplicates
+    pageNumber
+    phoneFormat
+    placeholder
+    size
+    type
+    value
+    visibility
+  }
+`;
