@@ -1,0 +1,7 @@
+/package-lock.json
+/*.js
+!index.js
+/node_modules/
+.env*
+!examples/.env*
+/dist/
