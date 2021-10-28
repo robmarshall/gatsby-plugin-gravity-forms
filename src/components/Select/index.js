@@ -4,12 +4,16 @@ import PropTypes from "prop-types";
 import React from "react";
 import { useFormContext } from "react-hook-form";
 import InputWrapper from "../../components/InputWrapper";
+import { valueToLowerCase } from "../../utils/helpers";
 
 const Select = ({ fieldData, name, ...wrapProps }) => {
   const { choices, cssClass, isRequired, size } = fieldData;
   const options = JSON.parse(choices);
 
-  const { register, errors } = useFormContext();
+  const {
+    register,
+    formState: { errors },
+  } = useFormContext();
 
   return (
     <InputWrapper
@@ -27,7 +31,7 @@ const Select = ({ fieldData, name, ...wrapProps }) => {
           "gravityform__field__input__select",
           "gfield_select",
           cssClass,
-          size
+          valueToLowerCase(size)
         )}
         id={name}
         name={name}

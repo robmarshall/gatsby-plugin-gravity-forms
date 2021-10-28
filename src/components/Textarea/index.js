@@ -5,6 +5,7 @@ import React from "react";
 import { useFormContext } from "react-hook-form";
 import InputWrapper from "../../components/InputWrapper";
 import strings from "../../utils/strings";
+import { valueToLowerCase } from "../../utils/helpers";
 
 const Textarea = ({ defaultValue, fieldData, name, wrapClassName, wrapId }) => {
   const {
@@ -14,12 +15,17 @@ const Textarea = ({ defaultValue, fieldData, name, wrapClassName, wrapId }) => {
     maxLength,
     placeholder,
     size,
-    type,
+    type: typeUpper,
   } = fieldData;
+
+  const type = valueToLowerCase(typeUpper);
 
   const regex = inputMaskValue ? new RegExp(inputMaskValue) : false;
 
-  const { register, errors } = useFormContext();
+  const {
+    register,
+    formState: { errors },
+  } = useFormContext();
 
   return (
     <InputWrapper

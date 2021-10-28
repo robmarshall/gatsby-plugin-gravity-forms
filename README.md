@@ -14,33 +14,20 @@ yarn add gatsby-plugin-gravity-forms
 npm i gatsby-plugin-gravity-forms
 ```
 
-## Gravity Forms Data and GraphQL Fragment
+## How To Use
 
-[GraphQL Fragments](https://www.gatsbyjs.org/docs/using-graphql-fragments/) are available from this component for making fetching the needed data. The `GravityFormComponent` fragment can be used on any `GF__Form` type node. Example:
+1. Add the component to your gatsby-config.js file.
 
-```graphql
-query {
-  allGfForm {
-    edges {
-      node {
-        ...GravityFormComponent
-      }
-    }
-  }
-}
-```
-
-## Using the component
+example.
 
 2. Import the component where you want to use it
-3. Add your environment variables
+
+This package contains GraphQl queries for the currently support fields.
 
 ```js
 import React from 'react'
 import GravityFormForm from 'gatsby-plugin-gravity-forms'
 
-// Would recommend moving this into a separate /src/hooks/gravityforms.js file
-// and import where needed
 import { useStaticQuery, graphql } from 'gatsby'
 const allGravityData = () => {
     const { allGfForm } = useStaticQuery(
@@ -116,11 +103,11 @@ To develop the component, you first need to link it to a Gatsby project. This is
 
 - [x] Input
 - [x] Textarea
-- [ ] Select (half done, need to add default values)
+- [ ] Select (half done, need to add default values and correct error placement)
 - [ ] Multiselect
 - [x] Number
-- [ ] Checkbox (half done, need to add default values)
-- [ ] Radio (half done, need to add default values)
+- [ ] Checkbox (half done, need to add default values and correct error placement)
+- [ ] Radio (half done, need to add default values and correct error placement)
 - [x] Hidden
 - [x] HTML
 - [x] Captcha

@@ -3,21 +3,31 @@ import { graphql } from "gatsby";
 import PropTypes from "prop-types";
 import React from "react";
 import { useFormContext } from "react-hook-form";
-import { filteredKeys } from "../../utils/helpers";
 import strings from "../../utils/strings";
 import InputWrapper from "../InputWrapper";
+import { valueToLowerCase } from "../../utils/helpers";
 
 // TODO: Enable Select All Choice
 const SelectorList = ({ fieldData, name, ...wrapProps }) => {
-  const { id, choices, cssClass, isRequired, size, type } = fieldData;
+  const {
+    id,
+    choices,
+    cssClass,
+    isRequired,
+    size,
+    type: typeUpper,
+  } = fieldData;
 
-  const { register, errors } = useFormContext();
+  const type = valueToLowerCase(typeUpper);
 
-  const errorKey = filteredKeys(errors, RegExp(`input_${id}_`));
+  const {
+    register,
+    formState: { errors },
+  } = useFormContext();
 
   return (
     <InputWrapper
-      errors={errorKey.length > 0 ? errors[errorKey[0]] : null}
+      errors={{}}
       inputData={fieldData}
       labelFor={name}
       {...wrapProps}

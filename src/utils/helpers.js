@@ -29,3 +29,6 @@ export const get = (obj, path, def) =>
     .every((step) => (obj = obj[step]) !== undefined)
     ? obj
     : def;
+
+export const valueToLowerCase = (string) =>
+  string ? string.toLowerCase() : "";

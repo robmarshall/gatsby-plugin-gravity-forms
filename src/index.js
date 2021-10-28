@@ -1,7 +1,8 @@
 import classnames from "classnames";
 import PropTypes from "prop-types";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { graphql } from "gatsby";
+import { useMutation } from "@apollo/client";
 import { useForm, FormProvider } from "react-hook-form";
 import FormGeneralError from "./components/FormGeneralError";
 import FieldBuilder from "./container/FieldBuilder";
@@ -13,8 +14,9 @@ import {
   submissionHasOneFieldEntry,
   cleanGroupedFields,
 } from "./utils/manageFormData";
+import submitMutation from "./submitMutation";
 // import passToGravityForms from './utils/passToGravityForms'
-
+import { valueToLowerCase } from "./utils/helpers";
 /**
  * Component to take Gravity Form graphQL data and turn into
  * a fully functional form.
@@ -27,10 +29,6 @@ const GravityFormForm = ({
   errorCallback,
   controls,
 }) => {
-  //Split the data out.
-
-  console.log(data);
-
   const {
     button,
     confirmation,
@@ -43,9 +41,22 @@ const GravityFormForm = ({
     title,
   } = data?.wpGravityFormsForm;
 
+  const [submitForm, { data: submittionData, loading, error }] = useMutation(
+    submitMutation
+  );
+
+  console.log(submittionData, loading, error);
+
   // Pull in form functions
   const methods = useForm();
-  const { handleSubmit, reset, setError } = methods;
+  const { watch, handleSubmit, reset, setError } = methods;
+
+  useEffect(() => {
+    const subscription = watch((value, { name, type }) =>
+      console.log(value, name, type)
+    );
+    return () => subscription.unsubscribe();
+  }, [watch]);
 
   const [generalError, setGeneralError] = useState("");
   const [formLoading, setLoadingState] = useState(false);
@@ -53,7 +64,17 @@ const GravityFormForm = ({
   // State for confirmation message
   const [confirmationMessage, setConfirmationMessage] = useState("");
 
-  const onSubmitCallback = async (values) => {};
+  const onSubmitCallback = async (values) => {
+    console.log(values);
+    // submitForm({
+    //   variables: {
+    //     formId: formId,
+    //     fieldValues: values,
+    //   },
+    // }).catch((error) => {
+    //   console.error(error);
+    // });
+  };
 
   // const onSubmitCallback = async (values) => {
   //     // Make sure we are not already waiting for a response
@@ -142,10 +163,12 @@ const GravityFormForm = ({
                 className={classnames(
                   "gform_fields",
                   {
-                    [`form_sublabel_${subLabelPlacement}`]: subLabelPlacement,
+                    [`form_sublabel_${valueToLowerCase(
+                      subLabelPlacement
+                    )}`]: valueToLowerCase(subLabelPlacement),
                   },
-                  `description_${descriptionPlacement}`,
-                  `${labelPlacement}`
+                  `description_${valueToLowerCase(descriptionPlacement)}`,
+                  `${valueToLowerCase(labelPlacement)}`
                 )}
                 id={`gform_fields_${formId}`}
               >
@@ -154,11 +177,12 @@ const GravityFormForm = ({
                   setFormLoading={setLoadingState}
                   formFields={formFields.nodes}
                   presetValues={presetValues}
+                  labelPlacement={labelPlacement}
                 />
               </ul>
             </div>
 
-            <div className={`gform_footer ${labelPlacement}`}>
+            <div className={`gform_footer ${valueToLowerCase(labelPlacement)}`}>
               <button
                 className="gravityform__button gform_button button"
                 disabled={formLoading}

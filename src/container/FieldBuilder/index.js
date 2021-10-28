@@ -8,7 +8,7 @@ import Multiselect from "../../components/Multiselect";
 import Select from "../../components/Select";
 import SelectorList from "../../components/SelectorList";
 import Textarea from "../../components/Textarea";
-import { get } from "../../utils/helpers";
+import { get, valueToLowerCase } from "../../utils/helpers";
 import { islabelHidden } from "../../utils/inputSettings";
 
 const FieldBuilder = ({
@@ -36,15 +36,19 @@ const FieldBuilder = ({
     let inputWrapperClass = classnames(
       "gfield",
       "gravityform__field",
-      "gravityform__field__" + type,
-      "gravityform__field--" + size,
+      "gravityform__field__" + valueToLowerCase(type),
+      "gravityform__field--" + valueToLowerCase(size),
       field.cssClass,
       { "field-required": isRequired },
       { "hidden-label": islabelHidden(labelPlacement) },
       { gfield_contains_required: isRequired },
-      { [`field_sublabel_${subLabelPlacement}`]: subLabelPlacement },
-      `field_description_${descriptionPlacement}`,
-      `gfield_visibility_${visibility}`
+      {
+        [`field_sublabel_${valueToLowerCase(
+          subLabelPlacement
+        )}`]: valueToLowerCase(subLabelPlacement),
+      },
+      `field_description_${valueToLowerCase(descriptionPlacement)}`,
+      `gfield_visibility_${valueToLowerCase(visibility)}`
     );
 
     const wrapId = `field_${formId}_${id}`;
@@ -60,6 +64,7 @@ const FieldBuilder = ({
             captchaTheme={captchaTheme}
             fieldData={field}
             key={id}
+            gfId={id}
             name={inputName}
             wrapClassName={inputWrapperClass}
           />
@@ -75,6 +80,7 @@ const FieldBuilder = ({
           <Input
             fieldData={field}
             key={id}
+            gfId={id}
             name={inputName}
             defaultValue={
               get(presetValues, inputName, false) || field.defaultValue
@@ -91,6 +97,7 @@ const FieldBuilder = ({
               get(presetValues, inputName, false) || field.defaultValue
             }
             key={id}
+            gfId={id}
             name={inputName}
             wrapClassName={inputWrapperClass}
             wrapId={wrapId}
@@ -101,6 +108,7 @@ const FieldBuilder = ({
           <Select
             fieldData={field}
             key={id}
+            gfId={id}
             name={inputName}
             wrapClassName={inputWrapperClass}
             wrapId={wrapId}
@@ -111,6 +119,7 @@ const FieldBuilder = ({
           <Multiselect
             fieldData={field}
             key={id}
+            gfId={id}
             name={inputName}
             wrapClassName={inputWrapperClass}
             wrapId={wrapId}
@@ -122,6 +131,7 @@ const FieldBuilder = ({
           <SelectorList
             fieldData={field}
             key={id}
+            gfId={id}
             name={inputName}
             wrapClassName={inputWrapperClass}
             wrapId={wrapId}
@@ -132,6 +142,7 @@ const FieldBuilder = ({
           <Html
             fieldData={field}
             key={id}
+            gfId={id}
             name={inputName}
             wrapClassName={inputWrapperClass}
             wrapId={wrapId}

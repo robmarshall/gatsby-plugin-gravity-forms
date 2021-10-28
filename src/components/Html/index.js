@@ -3,6 +3,7 @@ import { graphql } from "gatsby";
 import PropTypes from "prop-types";
 import React from "react";
 import InputWrapper from "../../components/InputWrapper";
+import { valueToLowerCase } from "../../utils/helpers";
 
 const Html = ({ fieldData, name, wrapClassName, ...wrapProps }) => {
   const { content, cssClass, type } = fieldData;
@@ -17,7 +18,7 @@ const Html = ({ fieldData, name, wrapClassName, ...wrapProps }) => {
         "gfield_html",
         "gfield_html_formatted",
         "gfield_no_follows_desc",
-        "gravityform__" + type + "__wrap",
+        "gravityform__" + valueToLowerCase(type) + "__wrap",
         cssClass
       )}
       dangerouslySetInnerHTML={{ __html: content }}

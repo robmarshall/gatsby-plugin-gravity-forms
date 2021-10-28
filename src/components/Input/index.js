@@ -4,6 +4,7 @@ import { graphql } from "gatsby";
 import React from "react";
 import { useFormContext } from "react-hook-form";
 import strings from "../../utils/strings";
+import { valueToLowerCase } from "../../utils/helpers";
 import InputWrapper from "../InputWrapper";
 
 const standardType = (type) => {
@@ -31,7 +32,10 @@ const Input = ({ defaultValue, fieldData, name, ...wrapProps }) => {
   const regex = inputMaskValue ? new RegExp(inputMaskValue) : false;
   let inputType = standardType(type);
 
-  const { register, errors } = useFormContext();
+  const {
+    register,
+    formState: { errors },
+  } = useFormContext();
 
   return (
     <InputWrapper
@@ -45,9 +49,9 @@ const Input = ({ defaultValue, fieldData, name, ...wrapProps }) => {
         aria-required={isRequired}
         className={classnames(
           "gravityform__field__input",
-          `gravityform__field__input__${type}`,
+          `gravityform__field__input__${valueToLowerCase(type)}`,
           cssClass,
-          size
+          valueToLowerCase(size)
         )}
         defaultValue={defaultValue}
         id={name}
