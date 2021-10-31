@@ -11,12 +11,7 @@ import Textarea from "../../components/Textarea";
 import { get, valueToLowerCase } from "../../utils/helpers";
 import { islabelHidden } from "../../utils/inputSettings";
 
-const FieldBuilder = ({
-  formFields,
-  formLoading,
-  setFormLoading,
-  presetValues,
-}) => {
+const FieldBuilder = ({ formFields, formLoading, presetValues }) => {
   // Loop through fields and create
   return formFields.map((field) => {
     // Set the wrapper classes

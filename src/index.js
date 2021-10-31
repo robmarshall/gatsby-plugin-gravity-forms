@@ -15,7 +15,7 @@ import {
   cleanGroupedFields,
 } from "./utils/manageFormData";
 import submitMutation from "./submitMutation";
-// import passToGravityForms from './utils/passToGravityForms'
+import formatPayload from "./utils/formatPayload";
 import { valueToLowerCase } from "./utils/helpers";
 /**
  * Component to take Gravity Form graphQL data and turn into
@@ -24,14 +24,13 @@ import { valueToLowerCase } from "./utils/helpers";
  */
 const GravityFormForm = ({
   data,
-  presetValues = {},
-  successCallback = ({ reset }) => reset(),
+  presetValues,
+  successCallback,
   errorCallback,
-  controls,
 }) => {
   const {
     button,
-    confirmation,
+    confirmations,
     description,
     descriptionPlacement,
     labelPlacement,
@@ -41,174 +40,154 @@ const GravityFormForm = ({
     title,
   } = data?.wpGravityFormsForm;
 
-  const [submitForm, { data: submittionData, loading, error }] = useMutation(
+  const [submitForm, { data: submittionData, loading }] = useMutation(
     submitMutation
   );
 
-  console.log(submittionData, loading, error);
+  // Handle Gravity Form Submittion state.
+  // Thanks to: https://developers.wpengine.com/blog/gravity-forms-in-headless-wordpress-gatsby
+  const haveEntryId = Boolean(submittionData?.submitGravityFormsForm?.entryId);
+  const haveFieldErrors = Boolean(
+    submittionData?.submitGravityFormsForm?.errors?.length
+  );
+  const wasSuccessfullySubmitted = haveEntryId && !haveFieldErrors;
 
   // Pull in form functions
   const methods = useForm();
-  const { watch, handleSubmit, reset, setError } = methods;
+  const {
+    handleSubmit,
+    setError,
+    reset,
+    formState: { errors },
+  } = methods;
 
-  useEffect(() => {
-    const subscription = watch((value, { name, type }) =>
-      console.log(value, name, type)
-    );
-    return () => subscription.unsubscribe();
-  }, [watch]);
+  console.log(errors);
 
   const [generalError, setGeneralError] = useState("");
-  const [formLoading, setLoadingState] = useState(false);
-
-  // State for confirmation message
-  const [confirmationMessage, setConfirmationMessage] = useState("");
 
   const onSubmitCallback = async (values) => {
-    console.log(values);
-    // submitForm({
-    //   variables: {
-    //     formId: formId,
-    //     fieldValues: values,
-    //   },
-    // }).catch((error) => {
-    //   console.error(error);
-    // });
+    // Make sure we are not already waiting for a response
+    if (!loading) {
+      // Clean error
+
+      // Check that at least one field has been filled in
+      if (submissionHasOneFieldEntry(values)) {
+        setGeneralError("");
+
+        const formRes = formatPayload({
+          serverData: formFields?.nodes,
+          clientData: values,
+        });
+
+        console.log(formRes);
+
+        submitForm({
+          variables: {
+            formId: formId,
+            fieldValues: formRes,
+          },
+        })
+          .then(
+            ({
+              data: {
+                submitGravityFormsForm: { entryId, errors },
+              },
+            }) => {
+              // Success
+              if (entryId) {
+                successCallback({
+                  data: formRes,
+                  reset,
+                });
+              }
+              // We have a problem
+              if (errors?.length) {
+                console.log(errors);
+                handleGravityFormsValidationErrors(errors, setError);
+                errorCallback({ data: formRes, error: errors, reset });
+              }
+            }
+          )
+          .catch((error) => {
+            console.log(error);
+            setGeneralError("unknownError");
+            errorCallback({ data: formRes, error, reset });
+          });
+      } else {
+        setGeneralError("leastOneField");
+      }
+    }
   };
 
-  // const onSubmitCallback = async (values) => {
-  //     // Make sure we are not already waiting for a response
-  //     if (!formLoading) {
-  //         // Clean error
-  //         setGeneralError('')
-  //
-  //         // Check that at least one field has been filled in
-  //         if (submissionHasOneFieldEntry(values)) {
-  //             setLoadingState(true)
-  //
-  //             const filteredValues = cleanGroupedFields(values)
-  //
-  //             // const { data, status } = await passToGravityForms({
-  //             //     baseUrl: singleForm.apiURL,
-  //             //     formData: filteredValues,
-  //             //     id,
-  //             //     lambdaEndpoint: lambda,
-  //             // })
-  //
-  //             setLoadingState(false)
-  //
-  //             if (status === 'error') {
-  //                 // Handle the errors
-  //                 // First check to make sure we have the correct data
-  //
-  //                 if (data?.status === 'gravityFormErrors') {
-  //                     // Pass messages to handle that sets react-hook-form errors
-  //                     handleGravityFormsValidationErrors(
-  //                         data.validation_messages,
-  //                         setError
-  //                     )
-  //                 } else {
-  //                     // Seemed to be an unknown issue
-  //                     setGeneralError('unknownError')
-  //                 }
-  //
-  //                 errorCallback &&
-  //                     errorCallback({ filteredValues, error: data, reset })
-  //             }
-  //
-  //             if (status === 'success') {
-  //                 const { confirmation_message } = data?.data
-  //
-  //                 const { confirmations } = singleForm
-  //
-  //                 const confirmation = confirmations?.find(
-  //                     (el) => el.isDefault
-  //                 )
-  //
-  //                 setConfirmationMessage(
-  //                     confirmation_message || confirmation?.message || false
-  //                 )
-  //
-  //                 successCallback({
-  //                     filteredValues,
-  //                     reset,
-  //                     confirmations,
-  //                 })
-  //             }
-  //         } else {
-  //             setGeneralError('leastOneField')
-  //         }
-  //     }
-  // }
+  if (wasSuccessfullySubmitted) {
+    const confirmation = confirmations?.find((el) => el.isDefault);
 
-  if (!confirmationMessage) {
     return (
-      <div className="gform_wrapper" id={`gform_wrapper_${formId}`}>
-        <div className="gform_anchor" id={`gf_${formId}`} />
-
-        <FormProvider {...methods}>
-          <form
-            className={
-              formLoading
-                ? `gravityform gravityform--loading gravityform--id-${formId}`
-                : `gravityform gravityform--id-${formId}`
-            }
-            id={`gfrom_${formId}`}
-            key={`gfrom_-${formId}`}
-            onSubmit={handleSubmit(onSubmitCallback)}
-          >
-            {generalError && <FormGeneralError errorCode={generalError} />}
-            <div className="gform_body">
-              <ul
-                className={classnames(
-                  "gform_fields",
-                  {
-                    [`form_sublabel_${valueToLowerCase(
-                      subLabelPlacement
-                    )}`]: valueToLowerCase(subLabelPlacement),
-                  },
-                  `description_${valueToLowerCase(descriptionPlacement)}`,
-                  `${valueToLowerCase(labelPlacement)}`
-                )}
-                id={`gform_fields_${formId}`}
-              >
-                <FieldBuilder
-                  formLoading={formLoading}
-                  setFormLoading={setLoadingState}
-                  formFields={formFields.nodes}
-                  presetValues={presetValues}
-                  labelPlacement={labelPlacement}
-                />
-              </ul>
-            </div>
-
-            <div className={`gform_footer ${valueToLowerCase(labelPlacement)}`}>
-              <button
-                className="gravityform__button gform_button button"
-                disabled={formLoading}
-                id={`gform_submit_button_${formId}`}
-                type="submit"
-              >
-                {formLoading ? (
-                  <span className="gravityform__button__loading_span">
-                    Loading
-                  </span>
-                ) : (
-                  button?.text
-                )}
-              </button>
-            </div>
-          </form>
-        </FormProvider>
-      </div>
+      <div
+        /* eslint-disable react/no-danger */
+        dangerouslySetInnerHTML={{ __html: confirmation?.message }}
+      />
     );
   }
 
   return (
-    <div
-      /* eslint-disable react/no-danger */
-      dangerouslySetInnerHTML={{ __html: confirmations[0].message }}
-    />
+    <div className="gform_wrapper" id={`gform_wrapper_${formId}`}>
+      <div className="gform_anchor" id={`gf_${formId}`} />
+
+      <FormProvider {...methods}>
+        <form
+          className={
+            loading
+              ? `gravityform gravityform--loading gravityform--id-${formId}`
+              : `gravityform gravityform--id-${formId}`
+          }
+          id={`gfrom_${formId}`}
+          key={`gfrom_-${formId}`}
+          onSubmit={handleSubmit(onSubmitCallback)}
+        >
+          {generalError && <FormGeneralError errorCode={generalError} />}
+          <div className="gform_body">
+            <ul
+              className={classnames(
+                "gform_fields",
+                {
+                  [`form_sublabel_${valueToLowerCase(
+                    subLabelPlacement
+                  )}`]: valueToLowerCase(subLabelPlacement),
+                },
+                `description_${valueToLowerCase(descriptionPlacement)}`,
+                `${valueToLowerCase(labelPlacement)}`
+              )}
+              id={`gform_fields_${formId}`}
+            >
+              <FieldBuilder
+                formLoading={loading}
+                formFields={formFields.nodes}
+                presetValues={presetValues}
+                labelPlacement={labelPlacement}
+              />
+            </ul>
+          </div>
+
+          <div className={`gform_footer ${valueToLowerCase(labelPlacement)}`}>
+            <button
+              className="gravityform__button gform_button button"
+              disabled={loading}
+              id={`gform_submit_button_${formId}`}
+              type="submit"
+            >
+              {loading ? (
+                <span className="gravityform__button__loading_span">
+                  Loading
+                </span>
+              ) : (
+                button?.text
+              )}
+            </button>
+          </div>
+        </form>
+      </FormProvider>
+    </div>
   );
 };
 
@@ -216,6 +195,13 @@ GravityFormForm.propTypes = {
   errorCallback: PropTypes.func,
   data: PropTypes.object.isRequired,
   successCallback: PropTypes.func,
+  presetValues: PropTypes.shape({}),
+};
+
+GravityFormForm.defaultProps = {
+  errorCallback: () => {},
+  successCallback: () => {},
+  presetValues: {},
 };
 
 export default GravityFormForm;
