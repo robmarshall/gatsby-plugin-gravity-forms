@@ -2,6 +2,7 @@ import classnames from "classnames";
 import { graphql } from "gatsby";
 import PropTypes from "prop-types";
 import React from "react";
+import Fragment from "react-dom-fragment";
 import InputWrapper from "../../components/InputWrapper";
 import { valueToLowerCase } from "../../utils/helpers";
 
@@ -21,8 +22,9 @@ const Html = ({ fieldData, name, wrapClassName, ...wrapProps }) => {
         "gravityform__" + valueToLowerCase(type) + "__wrap",
         cssClass
       )}
-      dangerouslySetInnerHTML={{ __html: content }}
-    />
+    >
+      <Fragment dangerouslySetInnerHTML={{ __html: content }} />
+    </InputWrapper>
   );
 };
 
