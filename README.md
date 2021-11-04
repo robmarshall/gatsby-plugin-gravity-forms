@@ -1,8 +1,12 @@
 # Gatsby GraphQl Gravity Forms Component
 
-A (relatively) plug and play component for parsing GraphQL Gravity Form data. Outputs a component using BEM classes, meaning all you need to do is style it.
+A plug and play component for parsing GraphQL Gravity Form data. Outputs a component using BEM classes, meaning all you need to do is style it.
+
+To be used alongside [gatsby-source-wordpress](https://www.npmjs.com/package/gatsby-source-wordpress).
 
 Uses [React Hook Forms](https://react-hook-form.com/) under the hood for all that good state management.
+
+[Apollo](https://github.com/apollographql/apollo-client) is baked in for handling the data submission.
 
 ## Installation
 
@@ -18,67 +22,65 @@ npm i gatsby-plugin-gravity-forms
 
 1. Add the component to your gatsby-config.js file.
 
-example.
+```
+{
+  resolve: "gatsby-plugin-gravity-forms",
+  options: {
+    // This URL should be the same as you use for your
+    // gatsby-source-wordpress options.
+    url: "https://yourwebdomain.com/graphql",
+  },
+},
+```
 
-2. Import the component where you want to use it
-
-This package contains GraphQl queries for the currently support fields.
+2. Import the component and use it with a GraphQL query. Make sure to set the formID.
 
 ```js
-import React from 'react'
-import GravityFormForm from 'gatsby-plugin-gravity-forms'
+import React from "react";
+import { useStaticQuery, graphql } from "gatsby";
 
-import { useStaticQuery, graphql } from 'gatsby'
-const allGravityData = () => {
-    const { allGfForm } = useStaticQuery(
-        graphql`
-            query {
-                allGfForm {
-                    edges {
-                        node {
-                            ...GravityFormComponent
-                        }
-                    }
-                }
-            }
-        `
-    )
-    return allGfForm
-}
+import Layout from "../components/layout";
+import GravityFormForm from "gatsby-plugin-gravity-forms";
 
-function handleError({values, error, reset}) => {
-    //handle error
-}
+const ExamplePage = () => {
+  const data = useStaticQuery(graphql`
+    query formQuery {
+      wpGravityFormsForm(formId: { eq: 1 }) {
+        ...GravityFormFields
+      }
+    }
+  `);
 
-function handleSuccess({values, reset, confirmations}) => {
-    //handle success
-}
+  return (
+    <Layout>
+      <GravityFormForm data={data} />
+    </Layout>
+  );
+};
 
-const examplePage = () => (
-    <GravityFormForm
-        formData={}
-        presetValues={{ input_1: 'special_value' }}
-        successCallback={handleSuccess}
-        errorCallback={handleError}
-    />
-)
-export default examplePage
+export default ExamplePage;
 ```
+
+The `...GravityFormFields` fragment is included within the gatsby-plugin-gravity-forms plugin.
 
 This outputs the form that has been set up in WordPress - Gravity Forms. Ready for you to style it!
 
-- formData: The data passed from the query function - this is the same for all forms
-- presetValues: An object, with the keys set as the input ID (shown in Gravity Forms editor) and the value to set the field as. Great for hidden fields.
-- successCallback: function to be called on successful form submission. values: form values, reset: function to reset form, confirmations: form confirmations set in WP GF.
-- errorCallback: function to be called on error in form submission. values: form values, reset: function to reset form, error: error response from API.
+## WordPress Backend Not Allowing Submission
 
-## Add Environment Variables
+Having CORS issues?
 
-The following environment variables should be added to your hosting provider backend. If unsure, most providers have an article explaining the process of adding them. A quick Google should find this.
+Add the following snippet of code to your WordPress functions.php file.
 
-```js
-GATSBY_GF_CONSUMER_KEY = "XXXXXX";
-GATSBY_GF_CONSUMER_SECRET = "XXXXXX";
+Make sure to update the 'https://yourfrontendurl.com' to your actual frontend. With no trailing slash.
+
+```
+add_filter( 'graphql_response_headers_to_send', function( $headers ) {
+	return array_merge( $headers, [
+		'Access-Control-Allow-Origin'  => 'https://yourfrontendurl.com',
+		'Access-Control-Allow-Methods' => 'POST, GET, OPTIONS, PUT, DELETE',
+		'Access-Control-Allow-Credentials' => 'true'
+	] );
+} );
 ```
 
 ## Implementing Google reCAPTCHA
@@ -91,8 +93,6 @@ Upon responding to the captcha Google sends back a **reCAPTCHA response token** 
 
 Firstly, yes please! Any help would be great.
 
-If you are developing locally, you may run into an error "Cannot resolve React". If you do, check out this article: https://thoughtsandstuff.com/building-react-components-for-gatsby-using-npm-link-and-hooks-cant-resolve-react-solution
-
 ### Developing Locally
 
 To develop the component, you first need to link it to a Gatsby project. This is so you have an environment to work with. The [Gatsby Default Starter](https://github.com/gatsbyjs/gatsby-starter-default) is a good choice.
@@ -103,10 +103,10 @@ To develop the component, you first need to link it to a Gatsby project. This is
 
 - [x] Input
 - [x] Textarea
-- [ ] Select (half done, need to add default values and correct error placement)
+- [ ] Select (half done, need to add default values)
 - [ ] Multiselect
 - [x] Number
-- [ ] Checkbox (half done, need to add default values and correct error placement)
+- [ ] Checkbox (half done, need to add default values)
 - [ ] Radio (half done, need to add default values and correct error placement)
 - [x] Hidden
 - [x] HTML
@@ -117,12 +117,6 @@ To develop the component, you first need to link it to a Gatsby project. This is
 
 - [ ] Honeypot
 - [x] Add submit/error callback for custom use
-
-### Send to CMS
-
-- [x] Turn data into Gravity Forms schema
-- [x] Function to send/receive data from CMS
-- [x] Error handling provided by Gravity Forms
 
 ### Add Tests to Inputs
 
