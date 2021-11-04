@@ -7,14 +7,19 @@ import {
   HttpLink,
 } from "@apollo/client";
 
-const client = new ApolloClient({
-  link: new HttpLink({
-    uri: "",
-    fetch,
-  }),
-  cache: new InMemoryCache(),
-});
+export const wrapRootElement = ({ element }, { url }) => {
+  // Add error handling if no URL passed.
+  if (!url) {
+    return null;
+  }
 
-export const wrapRootElement = ({ element }) => (
-  <ApolloProvider client={client}>{element}</ApolloProvider>
-);
+  const client = new ApolloClient({
+    link: new HttpLink({
+      uri: url,
+      fetch,
+    }),
+    cache: new InMemoryCache(),
+  });
+
+  return <ApolloProvider client={client}>{element}</ApolloProvider>;
+};
