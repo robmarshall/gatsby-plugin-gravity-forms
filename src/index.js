@@ -28,6 +28,14 @@ const GravityFormForm = ({
   successCallback,
   errorCallback,
 }) => {
+  // Split out data depending on how it is passed in.
+  let form;
+  if (data?.wpGravityFormsForm) {
+    form = data.wpGravityFormsForm;
+  } else {
+    form = data;
+  }
+
   const {
     button,
     confirmations,
@@ -38,7 +46,7 @@ const GravityFormForm = ({
     formFields,
     formId,
     title,
-  } = data?.wpGravityFormsForm;
+  } = form;
 
   const [submitForm, { data: submittionData, loading }] = useMutation(
     submitMutation
@@ -61,8 +69,6 @@ const GravityFormForm = ({
     formState: { errors },
   } = methods;
 
-  console.log(errors);
-
   const [generalError, setGeneralError] = useState("");
 
   const onSubmitCallback = async (values) => {
@@ -78,8 +84,6 @@ const GravityFormForm = ({
           serverData: formFields?.nodes,
           clientData: values,
         });
-
-        console.log(formRes);
 
         submitForm({
           variables: {
@@ -102,14 +106,12 @@ const GravityFormForm = ({
               }
               // We have a problem
               if (errors?.length) {
-                console.log(errors);
                 handleGravityFormsValidationErrors(errors, setError);
                 errorCallback({ data: formRes, error: errors, reset });
               }
             }
           )
           .catch((error) => {
-            console.log(error);
             setGeneralError("unknownError");
             errorCallback({ data: formRes, error, reset });
           });

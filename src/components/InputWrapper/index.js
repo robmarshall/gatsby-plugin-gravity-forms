@@ -27,7 +27,7 @@ const InputWrapper = ({
     <li
       className={classnames(
         wrapClassName,
-        errors && "gravityform__field--error",
+        errors?.type && "gravityform__field--error",
         cssClass
       )}
       id={wrapId}

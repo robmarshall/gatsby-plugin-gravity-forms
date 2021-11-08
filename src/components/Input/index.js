@@ -45,7 +45,7 @@ const Input = ({ defaultValue, fieldData, name, ...wrapProps }) => {
       {...wrapProps}
     >
       <input
-        aria-invalid={errors}
+        aria-invalid={Boolean(errors?.[name])}
         aria-required={isRequired}
         className={classnames(
           "gravityform__field__input",

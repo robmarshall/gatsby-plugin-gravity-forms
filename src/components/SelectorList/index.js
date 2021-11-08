@@ -51,7 +51,7 @@ const SelectorList = ({ fieldData, name, ...wrapProps }) => {
                   `gravityform__field__input__${type}`,
                   `gravityform__field__input__${type}--` + choiceID,
                   cssClass,
-                  size
+                  valueToLowerCase(size)
                 )}
                 defaultChecked={isSelected}
                 id={`${name}_${choiceID}`}

@@ -36,13 +36,13 @@ const Textarea = ({ defaultValue, fieldData, name, wrapClassName, wrapId }) => {
       wrapId={wrapId}
     >
       <textarea
-        aria-invalid={errors}
+        aria-invalid={Boolean(errors?.[name])}
         aria-required={isRequired}
         className={classnames(
           "gravityform__field__input",
           `gravityform__field__input__${type}`,
           cssClass,
-          size,
+          valueToLowerCase(size),
           "textarea"
         )}
         defaultValue={defaultValue}
