@@ -81,9 +81,6 @@ const formatter = ({ id, fieldResponse, type, inputs }) => {
 };
 
 export default ({ serverData, clientData }) => {
-  console.log(serverData);
-  console.log(clientData);
-
   const formattedData = serverData
     .map(({ type, inputs, id }) => {
       // Does this particular field have a response?
