@@ -51,6 +51,8 @@ const FieldBuilder = ({ formFields, formLoading, presetValues }) => {
     //TODO: Should this match GF version "input_form.id_input.id"
     const inputName = `input_${field.id}`;
 
+    const defaultValue = presetValues?.[inputName] || field?.defaultValue || "";
+
     switch (field.type) {
       // Add note for unsupported captcha field
       case "captcha":
@@ -77,9 +79,7 @@ const FieldBuilder = ({ formFields, formLoading, presetValues }) => {
             key={id}
             gfId={id}
             name={inputName}
-            defaultValue={
-              get(presetValues, inputName, false) || field.defaultValue
-            }
+            defaultValue={defaultValue}
             wrapClassName={inputWrapperClass}
             wrapId={wrapId}
           />
@@ -88,9 +88,7 @@ const FieldBuilder = ({ formFields, formLoading, presetValues }) => {
         return (
           <Textarea
             fieldData={field}
-            defaultValue={
-              get(presetValues, inputName, false) || field.defaultValue
-            }
+            defaultValue={defaultValue}
             key={id}
             gfId={id}
             name={inputName}
