@@ -8,7 +8,7 @@ import Multiselect from "../../components/Multiselect";
 import Select from "../../components/Select";
 import SelectorList from "../../components/SelectorList";
 import Textarea from "../../components/Textarea";
-import { get, valueToLowerCase } from "../../utils/helpers";
+import { valueToLowerCase } from "../../utils/helpers";
 import { islabelHidden } from "../../utils/inputSettings";
 
 const FieldBuilder = ({ formFields, formLoading, presetValues }) => {
