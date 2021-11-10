@@ -125,10 +125,13 @@ const GravityFormForm = ({
     const confirmation = confirmations?.find((el) => el.isDefault);
 
     return (
-      <div
-        /* eslint-disable react/no-danger */
-        dangerouslySetInnerHTML={{ __html: confirmation?.message }}
-      />
+      <div className="gform_confirmation_wrapper">
+        <div
+          className="gform_confirmation_message"
+          /* eslint-disable react/no-danger */
+          dangerouslySetInnerHTML={{ __html: confirmation?.message }}
+        />
+      </div>
     );
   }
 
