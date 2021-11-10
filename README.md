@@ -112,10 +112,17 @@ To develop the component, you first need to link it to a Gatsby project. This is
 - [x] HTML
 - [x] Captcha
 - [x] Add masking to inputs
+- [ ] Section
+- [ ] Page
+- [ ] Date
+- [ ] File upload
+- [ ] Post Fields
+- [ ] Pricing Fields
 
 ### General Form
 
 - [ ] Honeypot
+- [ ] Save and Continue
 - [x] Add submit/error callback for custom use
 
 ### Add Tests to Inputs
@@ -130,3 +137,9 @@ To develop the component, you first need to link it to a Gatsby project. This is
 - [ ] Hidden
 - [ ] HTML
 - [ ] Captcha
+
+## Confirmations
+
+- [x] Text Confirmation
+- [ ] Page Change
+- [ ] Redirect
