@@ -65,6 +65,8 @@ The `...GravityFormFields` fragment is included within the gatsby-plugin-gravity
 
 This outputs the form that has been set up in WordPress - Gravity Forms. Ready for you to style it!
 
+Tutorial on setup: https://thoughtsandstuff.com/headless-wordpress-gravity-forms-with-gatsby-step-by-step-tutorial/
+
 ## WordPress Backend Not Allowing Submission
 
 Having CORS issues?
