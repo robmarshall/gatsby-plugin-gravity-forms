@@ -67,6 +67,18 @@ This outputs the form that has been set up in WordPress - Gravity Forms. Ready f
 
 Tutorial on setup: https://thoughtsandstuff.com/headless-wordpress-gravity-forms-with-gatsby-step-by-step-tutorial/
 
+### Passing in Preset Values
+
+Sometimes you will want to conditionally set default values, or pass in data to hidden fields. This could be values for a user ID, or a current page.
+
+This is handled by the `presetValues` prop.
+
+```js
+<GravityFormForm data={form} presetValues={{ input_2: "My preset value" }} />
+```
+
+In the above example `input_2` corresponds to the 2nd field added in the WordPress Gravity Forms edit page. This value can be found by clicking on the field and looking at the top right just under Field Settings.
+
 ## WordPress Backend Not Allowing Submission
 
 Having CORS issues?
