@@ -116,6 +116,7 @@ To develop the component, you first need to link it to a Gatsby project. This is
 ### Field Components
 
 - [x] Input
+  - [] Email - Confirmation Email
 - [x] Textarea
 - [ ] Select (half done, need to add default values)
 - [ ] Multiselect
