@@ -1,3 +1,14 @@
 # Changelog
 
 ## v2.0.0 - Support WP GraphQL Gravity Forms v0.10.0 Updates
+
+**:warning: This release contains breaking changes.**
+
+This major release updates the GraphQL queries to match those in the recently updated v0.10.0 [wp-graphql-gravity-forms](https://github.com/harness-software/wp-graphql-gravity-forms).
+
+What's New
+
+- GraphQl query now uses `wpGfForm` rather than `wpGravityFormsForm`.
+- The form is now selected by its databaseId rather than formId.
+- Gravity Forms entries and draft entries now inherit the gfEntry interface, and use the GfSubmittedEntry and GfDraftEntry object types.
+- A large number of scheme changes. See [here](https://github.com/harness-software/wp-graphql-gravity-forms/releases/tag/v0.10.0) for more details.
