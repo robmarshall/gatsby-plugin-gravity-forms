@@ -44,7 +44,7 @@ const GravityFormForm = ({
     labelPlacement,
     subLabelPlacement,
     formFields,
-    formId,
+    databaseId,
     title,
   } = form;
 
@@ -87,7 +87,7 @@ const GravityFormForm = ({
 
         submitForm({
           variables: {
-            formId: formId,
+            databaseId: databaseId,
             fieldValues: formRes,
           },
         })
@@ -136,18 +136,18 @@ const GravityFormForm = ({
   }
 
   return (
-    <div className="gform_wrapper" id={`gform_wrapper_${formId}`}>
-      <div className="gform_anchor" id={`gf_${formId}`} />
+    <div className="gform_wrapper" id={`gform_wrapper_${databaseId}`}>
+      <div className="gform_anchor" id={`gf_${databaseId}`} />
 
       <FormProvider {...methods}>
         <form
           className={
             loading
-              ? `gravityform gravityform--loading gravityform--id-${formId}`
-              : `gravityform gravityform--id-${formId}`
+              ? `gravityform gravityform--loading gravityform--id-${databaseId}`
+              : `gravityform gravityform--id-${databaseId}`
           }
-          id={`gfrom_${formId}`}
-          key={`gfrom_-${formId}`}
+          id={`gfrom_${databaseId}`}
+          key={`gfrom_-${databaseId}`}
           onSubmit={handleSubmit(onSubmitCallback)}
         >
           {generalError && <FormGeneralError errorCode={generalError} />}
@@ -163,7 +163,7 @@ const GravityFormForm = ({
                 `description_${valueToLowerCase(descriptionPlacement)}`,
                 `${valueToLowerCase(labelPlacement)}`
               )}
-              id={`gform_fields_${formId}`}
+              id={`gform_fields_${databaseId}`}
             >
               <FieldBuilder
                 formLoading={loading}
@@ -178,7 +178,7 @@ const GravityFormForm = ({
             <button
               className="gravityform__button gform_button button"
               disabled={loading}
-              id={`gform_submit_button_${formId}`}
+              id={`gform_submit_button_${databaseId}`}
               type="submit"
             >
               {loading ? (
@@ -212,13 +212,13 @@ GravityFormForm.defaultProps = {
 export default GravityFormForm;
 
 export const GravityFormFields = graphql`
-  fragment GravityFormFields on WpGravityFormsForm {
-    formId
-    title
+  fragment GravityFormFields on WpGfForm {
+    databaseId
     description
     descriptionPlacement
     labelPlacement
     subLabelPlacement
+    title
     button {
       ...Button
     }
@@ -227,21 +227,27 @@ export const GravityFormFields = graphql`
     }
     formFields {
       nodes {
+        displayOnly
         id
+        inputType
+        layoutGridColumnSpan
+        layoutSpacerGridColumnSpan
+        pageNumber
         type
+        visibility
         ...CaptchaField
         ...CheckboxField
         ...DateField
         ...EmailField
-        ...HtmlField
         ...HiddenField
+        ...HtmlField
         ...MultiSelectField
+        ...NumberField
+        ...PhoneField
         ...RadioField
         ...SelectField
         ...TextAreaField
         ...TextField
-        ...NumberField
-        ...PhoneField
       }
     }
   }

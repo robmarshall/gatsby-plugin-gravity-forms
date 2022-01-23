@@ -96,8 +96,7 @@ SelectorList.propTypes = {
 export const CheckboxField = graphql`
   fragment CheckboxField on WpCheckboxField {
     adminLabel
-    adminOnly
-    allowsPrepopulate
+    canPrepopulate
     checkboxValues {
       inputId
       value
@@ -108,45 +107,29 @@ export const CheckboxField = graphql`
       value
     }
     conditionalLogic {
-      actionType
-      logicType
-      rules {
-        fieldId
-        operator
-        value
-      }
+      ...ConditionalLogic
     }
     cssClass
     description
     descriptionPlacement
-    enableChoiceValue
-    enablePrice
-    enableSelectAll
     errorMessage
-    formId
-    id
-    inputName
+    hasChoiceValue
+    hasSelectAll
     inputs {
       id
       label
       name
     }
+    inputName
     isRequired
     label
-    layoutGridColumnSpan
-    layoutSpacerGridColumnSpan
-    pageNumber
-    size
-    type
-    visibility
   }
 `;
 
 export const RadioField = graphql`
   fragment RadioField on WpRadioField {
     adminLabel
-    adminOnly
-    allowsPrepopulate
+    canPrepopulate
     choices {
       isOtherChoice
       isSelected
@@ -154,33 +137,18 @@ export const RadioField = graphql`
       value
     }
     conditionalLogic {
-      actionType
-      logicType
-      rules {
-        fieldId
-        operator
-        value
-      }
+      ...ConditionalLogic
     }
     cssClass
     description
     descriptionPlacement
-    enableChoiceValue
-    enableOtherChoice
-    enablePrice
+    hasChoiceValue
+    hasOtherChoice
     errorMessage
-    formId
-    id
     inputName
     isRequired
     label
-    layoutGridColumnSpan
-    layoutSpacerGridColumnSpan
-    noDuplicates
-    pageNumber
-    size
-    type
+    shouldAllowDuplicates
     value
-    visibility
   }
 `;

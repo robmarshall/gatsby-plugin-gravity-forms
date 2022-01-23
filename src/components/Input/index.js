@@ -97,59 +97,39 @@ Input.propTypes = {
 
 export const TextField = graphql`
   fragment TextField on WpTextField {
-    id
+    adminLabel
+    autocompleteAttribute
+    canPrepopulate
+    conditionalLogic {
+      ...ConditionalLogic
+    }
     cssClass
-    errorMessage
     defaultValue
     description
     descriptionPlacement
-    visibility
-    value
-    type
-    size
-    placeholder
-    pageNumber
-    noDuplicates
-    maxLength
-    layoutSpacerGridColumnSpan
-    layoutGridColumnSpan
-    label
+    errorMessage
+    hasAutocomplete
     inputName
+    isPasswordInput
     isRequired
-    formId
-    enablePasswordInput
-    enableAutocomplete
-    autocompleteAttribute
-    allowsPrepopulate
-    adminOnly
-    adminLabel
-    conditionalLogic {
-      actionType
-      logicType
-      rules {
-        fieldId
-        operator
-        value
-      }
-    }
+    label
+    maxLength
+    placeholder
+    shouldAllowDuplicates
+    size
+    value
   }
 `;
 
 export const DateField = graphql`
   fragment DateField on WpDateField {
+
     adminLabel
-    adminOnly
-    allowsPrepopulate
     calendarIconType
     calendarIconUrl
+    canPrepopulate
     conditionalLogic {
-      actionType
-      logicType
-      rules {
-        fieldId
-        operator
-        value
-      }
+      ...ConditionalLogic
     }
     cssClass
     dateFormat
@@ -158,8 +138,6 @@ export const DateField = graphql`
     description
     descriptionPlacement
     errorMessage
-    formId
-    id
     inputName
     inputs {
       customLabel
@@ -170,44 +148,26 @@ export const DateField = graphql`
     }
     isRequired
     label
-    layoutGridColumnSpan
-    layoutSpacerGridColumnSpan
-    noDuplicates
-    pageNumber
     placeholder
-    size
+    shouldAllowDuplicates
     subLabelPlacement
-    type
     value
-    visibility
   }
 `;
 
 export const EmailField = graphql`
   fragment EmailField on WpEmailField {
     adminLabel
-    adminOnly
-    allowsPrepopulate
-    autocompleteAttribute
+    canPrepopulate
     conditionalLogic {
-      actionType
-      logicType
-      rules {
-        fieldId
-        operator
-        value
-      }
+      ...ConditionalLogic
     }
     cssClass
-    defaultValue
     description
     descriptionPlacement
-    emailConfirmEnabled
-    enableAutocomplete
     errorMessage
-    formId
-    id
-    inputName
+    hasAutocomplete
+    hasEmailConfirmation
     inputs {
       autocompleteAttribute
       customLabel
@@ -219,42 +179,20 @@ export const EmailField = graphql`
     }
     isRequired
     label
-    layoutGridColumnSpan
-    layoutSpacerGridColumnSpan
-    noDuplicates
-    pageNumber
     placeholder
+    shouldAllowDuplicates
     size
     subLabelPlacement
-    type
     value
-    visibility
   }
 `;
 
 export const HiddenField = graphql`
   fragment HiddenField on WpHiddenField {
-    allowsPrepopulate
-    conditionalLogic {
-      actionType
-      logicType
-      rules {
-        fieldId
-        operator
-        value
-      }
-    }
-    cssClass
+    canPrepopulate
     defaultValue
-    formId
-    id
     inputName
     label
-    layoutGridColumnSpan
-    layoutSpacerGridColumnSpan
-    pageNumber
-    size
-    type
     value
   }
 `;
@@ -262,82 +200,54 @@ export const HiddenField = graphql`
 export const NumberField = graphql`
   fragment NumberField on WpNumberField {
     adminLabel
-    adminOnly
-    allowsPrepopulate
     autocompleteAttribute
     calculationFormula
     calculationRounding
+    canPrepopulate
     conditionalLogic {
-      actionType
-      logicType
-      rules {
-        fieldId
-        operator
-        value
-      }
+      ...ConditionalLogic
     }
     cssClass
     defaultValue
     description
     descriptionPlacement
-    enableAutocomplete
-    enableCalculation
     errorMessage
-    formId
-    id
+    hasAutocomplete
     inputName
+    isCalculation
     isRequired
     label
-    layoutGridColumnSpan
-    layoutSpacerGridColumnSpan
-    noDuplicates
     numberFormat
-    pageNumber
     placeholder
     rangeMax
     rangeMin
+    shouldAllowDuplicates
     size
-    type
     value
-    visibility
   }
 `;
 
 export const PhoneField = graphql`
   fragment PhoneField on WpPhoneField {
     adminLabel
-    adminOnly
-    allowsPrepopulate
     autocompleteAttribute
+    canPrepopulate
     conditionalLogic {
-      actionType
-      logicType
-      rules {
-        fieldId
-        operator
-        value
-      }
+      ...ConditionalLogic
     }
     cssClass
     defaultValue
     description
     descriptionPlacement
-    enableAutocomplete
     errorMessage
-    formId
-    id
+    hasAutocomplete
     inputName
     isRequired
     label
-    layoutGridColumnSpan
-    layoutSpacerGridColumnSpan
-    noDuplicates
-    pageNumber
     phoneFormat
     placeholder
+    shouldAllowDuplicates
     size
-    type
     value
-    visibility
   }
 `;

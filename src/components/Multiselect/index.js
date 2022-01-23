@@ -70,39 +70,25 @@ Multiselect.propTypes = {
 export const MultiSelectField = graphql`
   fragment MultiSelectField on WpMultiSelectField {
     adminLabel
-    adminOnly
-    allowsPrepopulate
+    canPrepopulate
     choices {
       isSelected
       text
       value
     }
     conditionalLogic {
-      actionType
-      logicType
-      rules {
-        fieldId
-        operator
-        value
-      }
+      ...ConditionalLogic
     }
     cssClass
     description
     descriptionPlacement
-    enableChoiceValue
-    enableEnhancedUI
+    hasChoiceValue
+    hasEnhancedUI
     errorMessage
-    formId
-    id
     inputName
     isRequired
     label
-    layoutGridColumnSpan
-    layoutSpacerGridColumnSpan
-    pageNumber
     size
-    type
     values
-    visibility
   }
 `;

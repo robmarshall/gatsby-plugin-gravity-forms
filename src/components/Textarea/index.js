@@ -93,8 +93,7 @@ Textarea.propTypes = {
 export const TextAreaField = graphql`
   fragment TextAreaField on WpTextAreaField {
     adminLabel
-    adminOnly
-    allowsPrepopulate
+    canPrepopulate
     conditionalLogic {
       actionType
       rules {
@@ -108,21 +107,14 @@ export const TextAreaField = graphql`
     description
     descriptionPlacement
     errorMessage
-    formId
-    id
     inputName
     isRequired
     label
-    layoutGridColumnSpan
-    layoutSpacerGridColumnSpan
     maxLength
-    noDuplicates
-    pageNumber
+    shouldAllowDuplicates
     placeholder
     size
-    type
-    useRichTextEditor
+    hasRichTextEditor
     value
-    visibility
   }
 `;

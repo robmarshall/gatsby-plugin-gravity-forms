@@ -85,29 +85,15 @@ export const CaptchaField = graphql`
     captchaTheme
     captchaType
     conditionalLogic {
-      rules {
-        fieldId
-        operator
-        value
-      }
-      actionType
-      logicType
+      ...ConditionalLogic
     }
     cssClass
     description
     descriptionPlacement
-    displayOnly
     errorMessage
-    formId
-    id
     label
-    layoutGridColumnSpan
-    layoutSpacerGridColumnSpan
-    pageNumber
     simpleCaptchaBackgroundColor
     simpleCaptchaFontColor
     simpleCaptchaSize
-    size
-    type
   }
 `;
