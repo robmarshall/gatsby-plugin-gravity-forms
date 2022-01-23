@@ -2,7 +2,7 @@
 
 A plug and play component for parsing GraphQL Gravity Form data. Outputs a component using BEM classes, meaning all you need to do is style it.
 
-To be used alongside [gatsby-source-wordpress](https://www.npmjs.com/package/gatsby-source-wordpress) and [wp-graphql-gravity-forms](https://github.com/harness-software/wp-graphql-gravity-forms).
+To be used alongside [gatsby-source-wordpress](https://www.npmjs.com/package/gatsby-source-wordpress) and [wp-graphql-gravity-forms](https://github.com/harness-software/wp-graphql-gravity-forms) (version 0.10.0 up).
 
 Uses [React Hook Forms](https://react-hook-form.com/) under the hood for all that good state management.
 
@@ -33,7 +33,7 @@ npm i gatsby-plugin-gravity-forms
 },
 ```
 
-2. Import the component and use it with a GraphQL query. Make sure to set the form ID as `databaseId`.
+2. Import the component and use it with a GraphQL query. Select the required form using its `databaseId`.
 
 ```js
 import React from "react";
