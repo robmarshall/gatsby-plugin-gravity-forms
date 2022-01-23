@@ -25,7 +25,7 @@ const FieldBuilder = ({ formFields, formLoading, presetValues }) => {
       type,
       size,
       visibility,
-      formId,
+      databaseId,
     } = field;
 
     let inputWrapperClass = classnames(
@@ -46,7 +46,7 @@ const FieldBuilder = ({ formFields, formLoading, presetValues }) => {
       `gfield_visibility_${valueToLowerCase(visibility)}`
     );
 
-    const wrapId = `field_${formId}_${id}`;
+    const wrapId = `field_${databaseId}_${id}`;
 
     //TODO: Should this match GF version "input_form.id_input.id"
     const inputName = `input_${field.id}`;

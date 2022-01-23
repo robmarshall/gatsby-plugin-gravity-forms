@@ -71,45 +71,30 @@ Select.propTypes = {
 export const SelectField = graphql`
   fragment SelectField on WpSelectField {
     adminLabel
-    adminOnly
-    allowsPrepopulate
     autocompleteAttribute
+    canPrepopulate
     choices {
       isSelected
       text
       value
     }
     conditionalLogic {
-      actionType
-      logicType
-      rules {
-        fieldId
-        operator
-        value
-      }
+      ...ConditionalLogic
     }
     cssClass
     defaultValue
     description
     descriptionPlacement
-    enableAutocomplete
-    enableChoiceValue
-    enableEnhancedUI
-    enablePrice
     errorMessage
-    formId
-    id
+    hasAutocomplete
+    hasChoiceValue
+    hasEnhancedUI
     inputName
     isRequired
     label
-    layoutGridColumnSpan
-    layoutSpacerGridColumnSpan
-    noDuplicates
-    pageNumber
     placeholder
+    shouldAllowDuplicates
     size
-    type
     value
-    visibility
   }
 `;

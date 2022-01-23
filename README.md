@@ -33,7 +33,7 @@ npm i gatsby-plugin-gravity-forms
 },
 ```
 
-2. Import the component and use it with a GraphQL query. Make sure to set the formID.
+2. Import the component and use it with a GraphQL query. Make sure to set the form ID as `databaseId`.
 
 ```js
 import React from "react";
@@ -45,7 +45,7 @@ import GravityFormForm from "gatsby-plugin-gravity-forms";
 const ExamplePage = () => {
   const data = useStaticQuery(graphql`
     query formQuery {
-      wpGravityFormsForm(formId: { eq: 1 }) {
+      wpGfForm(databaseId: { eq: 1 }) {
         ...GravityFormFields
       }
     }
