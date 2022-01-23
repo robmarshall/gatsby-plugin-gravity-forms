@@ -17,6 +17,7 @@ import {
 import submitMutation from "./submitMutation";
 import formatPayload from "./utils/formatPayload";
 import { valueToLowerCase } from "./utils/helpers";
+
 /**
  * Component to take Gravity Form graphQL data and turn into
  * a fully functional form.
@@ -30,8 +31,8 @@ const GravityFormForm = ({
 }) => {
   // Split out data depending on how it is passed in.
   let form;
-  if (data?.wpGravityFormsForm) {
-    form = data.wpGravityFormsForm;
+  if (data?.wpGfForm) {
+    form = data.wpGfForm;
   } else {
     form = data;
   }
@@ -39,12 +40,12 @@ const GravityFormForm = ({
   const {
     button,
     confirmations,
+    databaseId,
     description,
     descriptionPlacement,
+    formFields,
     labelPlacement,
     subLabelPlacement,
-    formFields,
-    databaseId,
     title,
   } = form;
 
@@ -87,7 +88,7 @@ const GravityFormForm = ({
 
         submitForm({
           variables: {
-            databaseId: databaseId,
+            databaseId,
             fieldValues: formRes,
           },
         })
@@ -166,6 +167,7 @@ const GravityFormForm = ({
               id={`gform_fields_${databaseId}`}
             >
               <FieldBuilder
+                databaseId={databaseId}
                 formLoading={loading}
                 formFields={formFields.nodes}
                 presetValues={presetValues}

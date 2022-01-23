@@ -1,6 +1,7 @@
 import classnames from "classnames";
 import PropTypes from "prop-types";
 import React from "react";
+import { valueToLowerCase } from "../../utils/helpers";
 import { outputDescription } from "../../utils/inputSettings";
 
 const InputWrapper = ({
@@ -38,7 +39,11 @@ const InputWrapper = ({
         dangerouslySetInnerHTML={{ __html: joinedLabel }}
       />
       {outputDescription(description, descriptionPlacement, "above", errors)}
-      <div className={`ginput_container ginput_container_${type}`}>
+      <div
+        className={`ginput_container ginput_container_${valueToLowerCase(
+          type
+        )}`}
+      >
         {children}
         {maxLength > 0 && (
           <div className="charleft ginput_counter warningTextareaInfo">

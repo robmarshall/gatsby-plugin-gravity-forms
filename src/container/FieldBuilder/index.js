@@ -11,7 +11,12 @@ import Textarea from "../../components/Textarea";
 import { valueToLowerCase } from "../../utils/helpers";
 import { islabelHidden } from "../../utils/inputSettings";
 
-const FieldBuilder = ({ formFields, formLoading, presetValues }) => {
+const FieldBuilder = ({
+  databaseId,
+  formFields,
+  formLoading,
+  presetValues,
+}) => {
   // Loop through fields and create
   return formFields.map((field) => {
     // Set the wrapper classes
@@ -25,14 +30,15 @@ const FieldBuilder = ({ formFields, formLoading, presetValues }) => {
       type,
       size,
       visibility,
-      databaseId,
     } = field;
+
+    const isHiddenField = type === "HIDDEN";
 
     let inputWrapperClass = classnames(
       "gfield",
       "gravityform__field",
       "gravityform__field__" + valueToLowerCase(type),
-      "gravityform__field--" + valueToLowerCase(size),
+      { [`gravityform__field--${valueToLowerCase(size)}`]: size },
       field.cssClass,
       { "field-required": isRequired },
       { "hidden-label": islabelHidden(labelPlacement) },
@@ -42,8 +48,14 @@ const FieldBuilder = ({ formFields, formLoading, presetValues }) => {
           subLabelPlacement
         )}`]: valueToLowerCase(subLabelPlacement),
       },
-      `field_description_${valueToLowerCase(descriptionPlacement)}`,
-      `gfield_visibility_${valueToLowerCase(visibility)}`
+      {
+        [`field_description_${valueToLowerCase(
+          descriptionPlacement
+        )}`]: descriptionPlacement,
+      },
+      `gfield_visibility_${
+        valueToLowerCase ? "hidden" : valueToLowerCase(visibility)
+      }`
     );
 
     const wrapId = `field_${databaseId}_${id}`;
@@ -55,7 +67,7 @@ const FieldBuilder = ({ formFields, formLoading, presetValues }) => {
 
     switch (field.type) {
       // Add note for unsupported captcha field
-      case "captcha":
+      case "CAPTCHA":
         return (
           <Captcha
             captchaTheme={captchaTheme}
@@ -66,13 +78,24 @@ const FieldBuilder = ({ formFields, formLoading, presetValues }) => {
             wrapClassName={inputWrapperClass}
           />
         );
+      case "HTML":
+        return (
+          <Html
+            fieldData={field}
+            key={id}
+            gfId={id}
+            name={inputName}
+            wrapClassName={inputWrapperClass}
+            wrapId={wrapId}
+          />
+        );
       // Start with the standard fields
-      case "text":
-      case "number":
-      case "email":
-      case "hidden":
-      case "date":
-      case "phone":
+      case "TEXT":
+      case "NUMBER":
+      case "EMAIL":
+      case "HIDDEN":
+      case "DATE":
+      case "PHONE":
         return (
           <Input
             fieldData={field}
@@ -84,7 +107,7 @@ const FieldBuilder = ({ formFields, formLoading, presetValues }) => {
             wrapId={wrapId}
           />
         );
-      case "textarea":
+      case "TEXTAREA":
         return (
           <Textarea
             fieldData={field}
@@ -96,7 +119,7 @@ const FieldBuilder = ({ formFields, formLoading, presetValues }) => {
             wrapId={wrapId}
           />
         );
-      case "select":
+      case "SELECT":
         return (
           <Select
             fieldData={field}
@@ -107,7 +130,7 @@ const FieldBuilder = ({ formFields, formLoading, presetValues }) => {
             wrapId={wrapId}
           />
         );
-      case "multiselect":
+      case "MULTISELECT":
         return (
           <Multiselect
             fieldData={field}
@@ -118,21 +141,10 @@ const FieldBuilder = ({ formFields, formLoading, presetValues }) => {
             wrapId={wrapId}
           />
         );
-      case "radio":
-      case "checkbox":
+      case "RADIO":
+      case "CHECKBOX":
         return (
           <SelectorList
-            fieldData={field}
-            key={id}
-            gfId={id}
-            name={inputName}
-            wrapClassName={inputWrapperClass}
-            wrapId={wrapId}
-          />
-        );
-      case "html":
-        return (
-          <Html
             fieldData={field}
             key={id}
             gfId={id}

@@ -71,7 +71,7 @@ const Input = ({ defaultValue, fieldData, name, ...wrapProps }) => {
             message: regex && strings.errors.pattern,
           },
         })}
-        type={inputType}
+        type={valueToLowerCase(inputType)}
       />
     </InputWrapper>
   );
@@ -123,7 +123,6 @@ export const TextField = graphql`
 
 export const DateField = graphql`
   fragment DateField on WpDateField {
-
     adminLabel
     calendarIconType
     calendarIconUrl
