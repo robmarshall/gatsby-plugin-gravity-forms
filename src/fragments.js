@@ -1,15 +1,9 @@
 import { graphql } from 'gatsby'
 
 export const Button = graphql`
-    fragment Button on WpButton {
+    fragment Button on WpFormButton {
         conditionalLogic {
-            actionType
-            logicType
-            rules {
-                fieldId
-                operator
-                value
-            }
+            ...ConditionalLogic
         }
         imageUrl
         text
@@ -17,16 +11,22 @@ export const Button = graphql`
     }
 `
 
+export const ConditionalLogic = graphql`
+    fragment ConditionalLogic on WpConditionalLogic {
+        actionType
+        logicType
+        rules {
+            fieldId
+            operator
+            value
+        }
+    }
+`
+
 export const FormConfirmation = graphql`
     fragment FormConfirmation on WpFormConfirmation {
         conditionalLogic {
-            actionType
-            logicType
-            rules {
-                fieldId
-                operator
-                value
-            }
+            ...ConditionalLogic
         }
         id
         isDefault

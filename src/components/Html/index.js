@@ -43,25 +43,11 @@ Html.propTypes = {
 export const HtmlField = graphql`
   fragment HtmlField on WpHtmlField {
     conditionalLogic {
-      actionType
-      logicType
-      rules {
-        fieldId
-        operator
-        value
-      }
+      ...ConditionalLogic
     }
     content
     cssClass
-    disableMargins
-    displayOnly
-    formId
-    id
+    hasMargins
     label
-    layoutGridColumnSpan
-    layoutSpacerGridColumnSpan
-    pageNumber
-    size
-    type
   }
 `;

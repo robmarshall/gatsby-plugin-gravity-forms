@@ -2,7 +2,7 @@
 
 A plug and play component for parsing GraphQL Gravity Form data. Outputs a component using BEM classes, meaning all you need to do is style it.
 
-To be used alongside [gatsby-source-wordpress](https://www.npmjs.com/package/gatsby-source-wordpress) and [wp-graphql-gravity-forms](https://github.com/harness-software/wp-graphql-gravity-forms).
+To be used alongside [gatsby-source-wordpress](https://www.npmjs.com/package/gatsby-source-wordpress) and [wp-graphql-gravity-forms](https://github.com/harness-software/wp-graphql-gravity-forms) (version 0.10.0 up).
 
 Uses [React Hook Forms](https://react-hook-form.com/) under the hood for all that good state management.
 
@@ -33,7 +33,7 @@ npm i gatsby-plugin-gravity-forms
 },
 ```
 
-2. Import the component and use it with a GraphQL query. Make sure to set the formID.
+2. Import the component and use it with a GraphQL query. Select the required form using its `databaseId`.
 
 ```js
 import React from "react";
@@ -45,7 +45,7 @@ import GravityFormForm from "gatsby-plugin-gravity-forms";
 const ExamplePage = () => {
   const data = useStaticQuery(graphql`
     query formQuery {
-      wpGravityFormsForm(formId: { eq: 1 }) {
+      wpGfForm(databaseId: { eq: 1 }) {
         ...GravityFormFields
       }
     }
@@ -64,6 +64,20 @@ export default ExamplePage;
 The `...GravityFormFields` fragment is included within the gatsby-plugin-gravity-forms plugin.
 
 This outputs the form that has been set up in WordPress - Gravity Forms. Ready for you to style it!
+
+Tutorial on setup: https://thoughtsandstuff.com/headless-wordpress-gravity-forms-with-gatsby-step-by-step-tutorial/
+
+### Passing in Preset Values
+
+Sometimes you will want to conditionally set default values, or pass in data to hidden fields. This could be values for a user ID, or a current page.
+
+This is handled by the `presetValues` prop.
+
+```js
+<GravityFormForm data={form} presetValues={{ input_2: "My preset value" }} />
+```
+
+In the above example `input_2` corresponds to the 2nd field added in the WordPress Gravity Forms edit page. This value can be found by clicking on the field and looking at the top right just under Field Settings.
 
 ## WordPress Backend Not Allowing Submission
 
@@ -102,6 +116,7 @@ To develop the component, you first need to link it to a Gatsby project. This is
 ### Field Components
 
 - [x] Input
+  - [ ] Email - Confirmation Email
 - [x] Textarea
 - [ ] Select (half done, need to add default values)
 - [ ] Multiselect
