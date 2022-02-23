@@ -1,5 +1,9 @@
 # Changelog
 
+## v2.0.1 - Hotfix
+
+This _hotfix_ adds the missed wpGraphQl fields from the v0.10.0 update. Now submits as it should! No more strange errors.
+
 ## v2.0.0 - Support WP GraphQL Gravity Forms v0.10.0 Updates
 
 **:warning: This release contains breaking changes.**
