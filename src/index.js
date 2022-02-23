@@ -53,12 +53,10 @@ const GravityFormForm = ({
     submitMutation
   );
 
-  // Handle Gravity Form Submittion state.
-  // Thanks to: https://developers.wpengine.com/blog/gravity-forms-in-headless-wordpress-gatsby
-  const haveEntryId = Boolean(submittionData?.submitGravityFormsForm?.entryId);
-  const haveFieldErrors = Boolean(
-    submittionData?.submitGravityFormsForm?.errors?.length
-  );
+  const haveEntryId = Boolean(submittionData?.submitGfForm?.entry?.id);
+
+  const haveFieldErrors = Boolean(submittionData?.submitGfForm?.errors?.length);
+
   const wasSuccessfullySubmitted = haveEntryId && !haveFieldErrors;
 
   // Pull in form functions
@@ -95,7 +93,10 @@ const GravityFormForm = ({
           .then(
             ({
               data: {
-                submitGravityFormsForm: { entryId, errors },
+                submitGravityFormsForm: {
+                  entry: { id: entryId },
+                  errors,
+                },
               },
             }) => {
               // Success
@@ -140,60 +141,62 @@ const GravityFormForm = ({
     <div className="gform_wrapper" id={`gform_wrapper_${databaseId}`}>
       <div className="gform_anchor" id={`gf_${databaseId}`} />
 
-      <FormProvider {...methods}>
-        <form
-          className={
-            loading
-              ? `gravityform gravityform--loading gravityform--id-${databaseId}`
-              : `gravityform gravityform--id-${databaseId}`
-          }
-          id={`gfrom_${databaseId}`}
-          key={`gfrom_-${databaseId}`}
-          onSubmit={handleSubmit(onSubmitCallback)}
-        >
-          {generalError && <FormGeneralError errorCode={generalError} />}
-          <div className="gform_body">
-            <ul
-              className={classnames(
-                "gform_fields",
-                {
-                  [`form_sublabel_${valueToLowerCase(
-                    subLabelPlacement
-                  )}`]: valueToLowerCase(subLabelPlacement),
-                },
-                `description_${valueToLowerCase(descriptionPlacement)}`,
-                `${valueToLowerCase(labelPlacement)}`
-              )}
-              id={`gform_fields_${databaseId}`}
-            >
-              <FieldBuilder
-                databaseId={databaseId}
-                formLoading={loading}
-                formFields={formFields.nodes}
-                presetValues={presetValues}
-                labelPlacement={labelPlacement}
-              />
-            </ul>
-          </div>
+      {formFields && (
+        <FormProvider {...methods}>
+          <form
+            className={
+              loading
+                ? `gravityform gravityform--loading gravityform--id-${databaseId}`
+                : `gravityform gravityform--id-${databaseId}`
+            }
+            id={`gfrom_${databaseId}`}
+            key={`gfrom_-${databaseId}`}
+            onSubmit={handleSubmit(onSubmitCallback)}
+          >
+            {generalError && <FormGeneralError errorCode={generalError} />}
+            <div className="gform_body">
+              <ul
+                className={classnames(
+                  "gform_fields",
+                  {
+                    [`form_sublabel_${valueToLowerCase(
+                      subLabelPlacement
+                    )}`]: valueToLowerCase(subLabelPlacement),
+                  },
+                  `description_${valueToLowerCase(descriptionPlacement)}`,
+                  `${valueToLowerCase(labelPlacement)}`
+                )}
+                id={`gform_fields_${databaseId}`}
+              >
+                <FieldBuilder
+                  databaseId={databaseId}
+                  formLoading={loading}
+                  formFields={formFields.nodes}
+                  presetValues={presetValues}
+                  labelPlacement={labelPlacement}
+                />
+              </ul>
+            </div>
 
-          <div className={`gform_footer ${valueToLowerCase(labelPlacement)}`}>
-            <button
-              className="gravityform__button gform_button button"
-              disabled={loading}
-              id={`gform_submit_button_${databaseId}`}
-              type="submit"
-            >
-              {loading ? (
-                <span className="gravityform__button__loading_span">
-                  Loading
-                </span>
-              ) : (
-                button?.text
-              )}
-            </button>
-          </div>
-        </form>
-      </FormProvider>
+            <div className={`gform_footer ${valueToLowerCase(labelPlacement)}`}>
+              <button
+                className="gravityform__button gform_button button"
+                disabled={loading}
+                id={`gform_submit_button_${databaseId}`}
+                type="submit"
+              >
+                {loading ? (
+                  <span className="gravityform__button__loading_span">
+                    Loading
+                  </span>
+                ) : (
+                  button?.text
+                )}
+              </button>
+            </div>
+          </form>
+        </FormProvider>
+      )}
     </div>
   );
 };
