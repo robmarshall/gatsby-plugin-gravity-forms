@@ -1,5 +1,9 @@
 # Changelog
 
+## v2.0.2 - Hotfix
+
+This _hotfix_ updates how errors/messaging is handled for empty fields containing checkboxes.
+
 ## v2.0.1 - Hotfix
 
 This _hotfix_ adds the missed wpGraphQl fields from the v0.10.0 update. Now submits as it should! No more strange errors.
