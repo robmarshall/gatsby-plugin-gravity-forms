@@ -53,11 +53,10 @@ const GravityFormForm = ({
     submitMutation
   );
 
-  const haveEntryId = Boolean(submittionData?.submitGfForm?.entry?.id);
-
+  const hasBeenSubmitted = Boolean(submittionData?.submitGfForm);
   const haveFieldErrors = Boolean(submittionData?.submitGfForm?.errors?.length);
 
-  const wasSuccessfullySubmitted = haveEntryId && !haveFieldErrors;
+  const wasSuccessfullySubmitted = hasBeenSubmitted && !haveFieldErrors;
 
   // Pull in form functions
   const methods = useForm();
@@ -93,21 +92,16 @@ const GravityFormForm = ({
           .then(
             ({
               data: {
-                submitGravityFormsForm: {
-                  entry: { id: entryId },
-                  errors,
-                },
+                submitGravityFormsForm: { errors },
               },
             }) => {
-              // Success
-              if (entryId) {
+              // Success if no errors returned.
+              if (!Boolean(errors?.length)) {
                 successCallback({
                   data: formRes,
                   reset,
                 });
-              }
-              // We have a problem
-              if (errors?.length) {
+              } else {
                 handleGravityFormsValidationErrors(errors, setError);
                 errorCallback({ data: formRes, error: errors, reset });
               }
