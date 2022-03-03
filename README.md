@@ -65,7 +65,7 @@ The `...GravityFormFields` fragment is included within the gatsby-plugin-gravity
 
 This outputs the form that has been set up in WordPress - Gravity Forms. Ready for you to style it!
 
-Tutorial on setup: https://thoughtsandstuff.com/headless-wordpress-gravity-forms-with-gatsby-step-by-step-tutorial/
+Tutorial on setup: https://robertmarshall.dev/blog/headless-wordpress-gravity-forms-with-gatsby-step-by-step-tutorial/
 
 ### Passing in Preset Values
 
