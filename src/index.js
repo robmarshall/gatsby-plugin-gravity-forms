@@ -38,7 +38,7 @@ const GravityFormForm = ({
   }
 
   const {
-    button,
+    submitButton,
     confirmations,
     databaseId,
     description,
@@ -184,7 +184,7 @@ const GravityFormForm = ({
                     Loading
                   </span>
                 ) : (
-                  button?.text
+                  submitButton?.text
                 )}
               </button>
             </div>
@@ -218,8 +218,8 @@ export const GravityFormFields = graphql`
     labelPlacement
     subLabelPlacement
     title
-    button {
-      ...Button
+    submitButton {
+      ...SubmitButton
     }
     confirmations {
       ...FormConfirmation

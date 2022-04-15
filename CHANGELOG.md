@@ -1,5 +1,9 @@
 # Changelog
 
+## v3.0.0 - Updates button query
+
+Updates button query to latest GraphQL GF format.
+
 ## v2.0.3 - Bigfix
 
 Removed the checking of an entry ID on submission. This is because some users delete the entry immediately for GDPR purposes. Meaning there is no entry to check for. This has been replaced with a simple check of an error object.
