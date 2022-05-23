@@ -1,7 +1,7 @@
 import classnames from "classnames";
 import PropTypes from "prop-types";
 import React, { useEffect, useState } from "react";
-import { graphql } from "gatsby";
+import { graphql, navigate } from "gatsby";
 import { useMutation } from "@apollo/client";
 import { useForm, FormProvider } from "react-hook-form";
 import FormGeneralError from "./components/FormGeneralError";
