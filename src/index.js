@@ -120,6 +120,10 @@ const GravityFormForm = ({
   if (wasSuccessfullySubmitted) {
     const confirmation = confirmations?.find((el) => el.isDefault);
 
+    if(el.isDefault && el.type !== 'text') {
+      navigate(el.url);
+    }
+    
     return (
       <div className="gform_confirmation_wrapper">
         <div
