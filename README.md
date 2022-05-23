@@ -112,7 +112,6 @@ Firstly, yes please! Any help would be great.
 To develop the component, you first need to link it to a Gatsby project. This is so you have an environment to work with. The [Gatsby Default Starter](https://github.com/gatsbyjs/gatsby-starter-default) is a good choice.
 
 ## To Do
-
 ### Field Components
 
 - [x] Input
@@ -158,3 +157,16 @@ To develop the component, you first need to link it to a Gatsby project. This is
 - [x] Text Confirmation
 - [ ] Page Change
 - [ ] Redirect
+
+### Ignitro Notes Below
+## To Do - Ignitro
+-Field Validation
+- [] Phone
+- [] Email
+- [] Configure error message (currently just 'An Unknown Error Occurred')
+- [] Integrate Success/Failure Handler from previous plugin
+-Confirmations
+- [] Redirect
+
+## Known Issues - Ignitro
+- [] Invalid phone number results in failed submission w/ non-descript general error message.
