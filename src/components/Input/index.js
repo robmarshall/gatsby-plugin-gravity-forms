@@ -1,7 +1,8 @@
 import classnames from "classnames";
 import PropTypes from "prop-types";
 import { graphql } from "gatsby";
-import React, {useState, useEffect, useRef} from "react";
+// import React, {useState, useEffect, useRef} from "react";
+import React from "react";
 import { useFormContext } from "react-hook-form";
 import strings from "../../utils/strings";
 import { valueToLowerCase  } from "../../utils/helpers";
@@ -103,10 +104,10 @@ const Input = ({ defaultValue, fieldData, name, ...wrapProps }) => {
           },
         })}
         type={valueToLowerCase(inputType)}
-        value={phoneValue}
-        // onChange={(e) => setPhoneValue(e.target.value)}
-        onChange={handleInputChange}
-        // ref={phoneInput}
+        // value={phoneValue}
+        // // onChange={(e) => setPhoneValue(e.target.value)}
+        // onChange={handleInputChange}
+        // // ref={phoneInput}
       />
     </InputWrapper>
   );
