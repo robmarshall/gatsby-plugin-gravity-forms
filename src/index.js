@@ -122,17 +122,17 @@ const GravityFormForm = ({
 
     if(confirmation.isDefault && confirmation.type !== 'text') {
       navigate(confirmation?.url);
+    } else {
+      return (
+        <div className="gform_confirmation_wrapper">
+          <div
+            className="gform_confirmation_message"
+            /* eslint-disable react/no-danger */
+            dangerouslySetInnerHTML={{ __html: confirmation?.message }}
+          />
+        </div>
+      );
     }
-
-    return (
-      <div className="gform_confirmation_wrapper">
-        <div
-          className="gform_confirmation_message"
-          /* eslint-disable react/no-danger */
-          dangerouslySetInnerHTML={{ __html: confirmation?.message }}
-        />
-      </div>
-    );
   }
 
   return (
