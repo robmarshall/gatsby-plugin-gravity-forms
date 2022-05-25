@@ -1,11 +1,10 @@
 import classnames from "classnames";
 import PropTypes from "prop-types";
 import { graphql } from "gatsby";
-// import React, {useState, useEffect, useRef} from "react";
 import React from "react";
 import { useFormContext } from "react-hook-form";
 import strings from "../../utils/strings";
-import { valueToLowerCase  } from "../../utils/helpers";
+import { valueToLowerCase } from "../../utils/helpers";
 import InputWrapper from "../InputWrapper";
 
 const standardType = (type) => {
@@ -19,9 +18,7 @@ const standardType = (type) => {
   }
 };
 
-
 const Input = ({ defaultValue, fieldData, name, ...wrapProps }) => {
-
   const {
     cssClass,
     inputMaskValue,
@@ -39,35 +36,6 @@ const Input = ({ defaultValue, fieldData, name, ...wrapProps }) => {
     register,
     formState: { errors },
   } = useFormContext();
-
-  // const [phoneValue, setPhoneValue] = useState([]);
-  // handleInputChange = (event) => {
-  //   let x =  phoneValue.toString().replace(/\D/g, '').match(/(\d{0,3})(\d{0,3})(\d{0,4})/);
-  //   x = !x[2] ? x[1] : '(' + x[1] + ') ' + x[2] + (x[3] ? '-' + x[3] : '');
-  //   console.log("phone" + x);
-  //   phoneValue = useState(x);
-  // }
-  // const phoneInput = useRef(null);
-  
-  // useEffect(() => {
-  //   if(valueToLowerCase(type) == 'phone') {
-  //     console.log(type);
-  //     let x =  phoneValue.toString().replace(/\D/g, '').match(/(\d{0,3})(\d{0,3})(\d{0,4})/);
-  //     x = !x[2] ? x[1] : '(' + x[1] + ') ' + x[2] + (x[3] ? '-' + x[3] : '');
-  //     console.log("phone" + x);
-  //     console.log("phone: " + phoneValue);
-
-  //     phoneInput.current.dispatchEvent(
-  //       new Event("change", {
-  //           detail: {
-  //               x: phoneValue,
-  //           },
-  //           bubbles: true,
-  //           cancelable: true,
-  //       })
-  //   );
-  //   }
-  // }, [phoneValue]);
 
   return (
     <InputWrapper
@@ -104,10 +72,6 @@ const Input = ({ defaultValue, fieldData, name, ...wrapProps }) => {
           },
         })}
         type={valueToLowerCase(inputType)}
-        // value={phoneValue}
-        // // onChange={(e) => setPhoneValue(e.target.value)}
-        // onChange={handleInputChange}
-        // // ref={phoneInput}
       />
     </InputWrapper>
   );
