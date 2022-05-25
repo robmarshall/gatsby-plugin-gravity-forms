@@ -25,12 +25,18 @@ import { valueToLowerCase } from "./utils/helpers";
  */
 const GravityFormForm = ({
   data,
+  // formId,
   presetValues,
   successCallback,
   errorCallback,
 }) => {
   // Split out data depending on how it is passed in.
   let form;
+  // if (data?.wpGfForm) {
+  //   console.log(data.wpGfForm);
+  //   console.log(data.wpGfForm.databaseId);
+  //   data.wpGfForm.databaseId = formId;
+  // }
   if (data?.wpGfForm) {
     form = data.wpGfForm;
   } else {
@@ -48,7 +54,6 @@ const GravityFormForm = ({
     subLabelPlacement,
     title,
   } = form;
-
   const [submitForm, { data: submittionData, loading }] = useMutation(
     submitMutation
   );
@@ -202,6 +207,7 @@ const GravityFormForm = ({
 GravityFormForm.propTypes = {
   errorCallback: PropTypes.func,
   data: PropTypes.object.isRequired,
+  // formId: PropTypes.number,
   successCallback: PropTypes.func,
   presetValues: PropTypes.shape({}),
 };
@@ -210,6 +216,7 @@ GravityFormForm.defaultProps = {
   errorCallback: () => {},
   successCallback: () => {},
   presetValues: {},
+  // formId: 3,
 };
 
 export default GravityFormForm;
