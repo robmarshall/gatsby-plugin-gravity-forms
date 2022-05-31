@@ -147,8 +147,8 @@ const GravityFormForm = ({
                 ? `gravityform gravityform--loading gravityform--id-${databaseId}`
                 : `gravityform gravityform--id-${databaseId}`
             }
-            id={`gfrom_${databaseId}`}
-            key={`gfrom_-${databaseId}`}
+            id={`gform${databaseId}`}
+            key={`gform-${databaseId}`}
             onSubmit={handleSubmit(onSubmitCallback)}
           >
             {generalError && <FormGeneralError errorCode={generalError} />}
