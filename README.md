@@ -132,6 +132,10 @@ To develop the component, you first need to link it to a Gatsby project. This is
 - [ ] File upload
 - [ ] Post Fields
 - [ ] Pricing Fields
+- [ ] Phone
+- [ ] Email
+- [ ] Configure error message (currently just 'An Unknown Error Occurred')
+- [ ] Integrate Success/Failure Handler from previous plugin
 
 ### General Form
 
@@ -158,16 +162,9 @@ To develop the component, you first need to link it to a Gatsby project. This is
 - [ ] Page Change
 - [ ] Redirect
 
-## Ignitro Notes Below
-### To Do - Ignitro
-# Field Validation
-- [ ] Phone
-- [ ] Email
-- [ ] Configure error message (currently just 'An Unknown Error Occurred')
-- [ ] Integrate Success/Failure Handler from previous plugin
 # Confirmations
 - [ ] Redirect 
 - [ ] Redirect query strings
 
-## Known Issues - Ignitro
+## Known Issues 
 - [ ] Invalid phone number results in failed submission w/ non-descript general error message.

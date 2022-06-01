@@ -121,7 +121,9 @@ const GravityFormForm = ({
     const confirmation = confirmations?.find((el) => el.isDefault);
 
     if(confirmation.isDefault && confirmation.type !== 'text') {
-      navigate(confirmation?.url);
+      let redirect = window.location.href(confirmation?.url);
+      // navigate(confirmation?.url);
+      navigate(redirect);
     } else {
       return (
         <div className="gform_confirmation_wrapper">
