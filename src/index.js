@@ -121,7 +121,6 @@ const GravityFormForm = ({
     const confirmation = confirmations?.find((el) => el.isDefault);
 
     if(confirmation.isDefault && confirmation.type !== 'text') {
-      // window.location.href = confirmation?.url;
       navigate(confirmation?.url);
     } else {
       return (
