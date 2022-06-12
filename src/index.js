@@ -1,7 +1,7 @@
 import classnames from "classnames";
 import PropTypes from "prop-types";
 import React, { useEffect, useState } from "react";
-import { graphql } from "gatsby";
+import { graphql, navigate } from "gatsby";
 import { useMutation } from "@apollo/client";
 import { useForm, FormProvider } from "react-hook-form";
 import FormGeneralError from "./components/FormGeneralError";
@@ -120,15 +120,19 @@ const GravityFormForm = ({
   if (wasSuccessfullySubmitted) {
     const confirmation = confirmations?.find((el) => el.isDefault);
 
-    return (
-      <div className="gform_confirmation_wrapper">
-        <div
-          className="gform_confirmation_message"
-          /* eslint-disable react/no-danger */
-          dangerouslySetInnerHTML={{ __html: confirmation?.message }}
-        />
-      </div>
-    );
+    if(confirmation.isDefault && confirmation.type !== 'text') {
+      navigate(confirmation?.url);
+    } else {
+      return (
+        <div className="gform_confirmation_wrapper">
+          <div
+            className="gform_confirmation_message"
+            /* eslint-disable react/no-danger */
+            dangerouslySetInnerHTML={{ __html: confirmation?.message }}
+          />
+        </div>
+      );
+    }
   }
 
   return (
@@ -143,8 +147,8 @@ const GravityFormForm = ({
                 ? `gravityform gravityform--loading gravityform--id-${databaseId}`
                 : `gravityform gravityform--id-${databaseId}`
             }
-            id={`gfrom_${databaseId}`}
-            key={`gfrom_-${databaseId}`}
+            id={`gform_${databaseId}`}
+            key={`gform_-${databaseId}`}
             onSubmit={handleSubmit(onSubmitCallback)}
           >
             {generalError && <FormGeneralError errorCode={generalError} />}

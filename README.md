@@ -112,7 +112,6 @@ Firstly, yes please! Any help would be great.
 To develop the component, you first need to link it to a Gatsby project. This is so you have an environment to work with. The [Gatsby Default Starter](https://github.com/gatsbyjs/gatsby-starter-default) is a good choice.
 
 ## To Do
-
 ### Field Components
 
 - [x] Input
@@ -133,6 +132,10 @@ To develop the component, you first need to link it to a Gatsby project. This is
 - [ ] File upload
 - [ ] Post Fields
 - [ ] Pricing Fields
+- [ ] Phone
+- [ ] Email
+- [ ] Configure error message (currently just 'An Unknown Error Occurred')
+- [ ] Integrate Success/Failure Handler from previous plugin
 
 ### General Form
 
@@ -158,3 +161,10 @@ To develop the component, you first need to link it to a Gatsby project. This is
 - [x] Text Confirmation
 - [ ] Page Change
 - [ ] Redirect
+
+# Confirmations
+- [ ] Redirect 
+- [ ] Redirect query strings
+
+## Known Issues 
+- [ ] Invalid phone number results in failed submission w/ non-descript general error message.

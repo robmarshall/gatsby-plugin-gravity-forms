@@ -6,6 +6,8 @@ const strings = {
         unknownError: 'An unknown error occured.',
         required: 'This field is required.',
         pattern: 'The format seems to be wrong.',
+        emailPattern: 'This is an invalid email format.',
+        phonePattern: 'This is an invalid phone number.',
         maxChar: {
             front: 'Need more than',
             back: 'characters.',
