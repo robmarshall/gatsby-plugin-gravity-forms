@@ -1,10 +1,16 @@
 # Changelog
 
+## v3.0.1 - Small Fixes
+
+- Implements a Select Fix (Thanks [@embergardens](https://github.com/embergardens))
+- Adds basic confirmation redirect support.
+- Small typo fixes.
+
 ## v3.0.0 - Updates button query
 
 Updates button query to latest GraphQL GF format.
 
-## v2.0.3 - Bigfix
+## v2.0.3 - Bugfix
 
 Removed the checking of an entry ID on submission. This is because some users delete the entry immediately for GDPR purposes. Meaning there is no entry to check for. This has been replaced with a simple check of an error object.
 

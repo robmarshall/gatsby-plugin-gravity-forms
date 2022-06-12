@@ -65,7 +65,7 @@ The `...GravityFormFields` fragment is included within the gatsby-plugin-gravity
 
 This outputs the form that has been set up in WordPress - Gravity Forms. Ready for you to style it!
 
-Tutorial on setup: https://thoughtsandstuff.com/headless-wordpress-gravity-forms-with-gatsby-step-by-step-tutorial/
+Tutorial on setup: https://robertmarshall.dev/blog/headless-wordpress-gravity-forms-with-gatsby-step-by-step-tutorial/
 
 ### Passing in Preset Values
 
@@ -112,6 +112,7 @@ Firstly, yes please! Any help would be great.
 To develop the component, you first need to link it to a Gatsby project. This is so you have an environment to work with. The [Gatsby Default Starter](https://github.com/gatsbyjs/gatsby-starter-default) is a good choice.
 
 ## To Do
+
 ### Field Components
 
 - [x] Input
@@ -163,8 +164,10 @@ To develop the component, you first need to link it to a Gatsby project. This is
 - [ ] Redirect
 
 # Confirmations
-- [ ] Redirect 
+
+- [ ] Redirect
 - [ ] Redirect query strings
 
-## Known Issues 
+## Known Issues
+
 - [ ] Invalid phone number results in failed submission w/ non-descript general error message.
