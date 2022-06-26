@@ -1,6 +1,6 @@
 {
   "name": "gatsby-plugin-gravity-forms",
-  "version": "3.0.1",
+  "version": "3.0.2",
   "description": "A component to take GraphQl Gravity Forms query data and return a usable form.",
   "main": "src/index.js",
   "scripts": {},

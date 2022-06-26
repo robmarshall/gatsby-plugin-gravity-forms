@@ -1,5 +1,11 @@
 # Changelog
 
+## v3.0.2 - Fixed errors, and added initial confirmation handling
+
+- The Gravity Form error object had slightly changed. This has been corrected.
+- Confirmations were being forced to default. Now new confirmations can be
+  added in WordPress and picked over default if active.
+
 ## v3.0.1 - Small Fixes
 
 - Implements a Select Fix (Thanks [@embergardens](https://github.com/embergardens))

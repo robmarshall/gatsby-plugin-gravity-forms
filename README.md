@@ -162,11 +162,8 @@ To develop the component, you first need to link it to a Gatsby project. This is
 - [x] Text Confirmation
 - [ ] Page Change
 - [ ] Redirect
-
-# Confirmations
-
-- [ ] Redirect
 - [ ] Redirect query strings
+- [ ] Conditional Logic
 
 ## Known Issues
 
