@@ -17,6 +17,10 @@ const formatter = ({ id, fieldResponse, type, inputs }) => {
       return {
         addressValues: value,
       };
+    case "CAPTCHA":
+      return {
+        value: fieldResponse,
+      };
     case "CHECKBOX":
       // Loop through all Gravity Form Checkbox choices.
       const selectedChoices = inputs

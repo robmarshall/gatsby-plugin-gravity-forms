@@ -25,7 +25,7 @@ const Captcha = ({ captchaTheme, fieldData, name, ...wrapProps }) => {
               target="_blank"
               title="This link opens a new page"
             >
-              http://www.google.com/recaptcha
+              https://www.google.com/recaptcha
             </a>
           </strong>
         </p>
@@ -37,7 +37,7 @@ const Captcha = ({ captchaTheme, fieldData, name, ...wrapProps }) => {
   const [isLoaded, setLoaded] = useState(false);
 
   const changeCaptchaToken = (token = "") => {
-    setValue("g-recaptcha-response", token, true);
+    setValue(name, token, true);
   };
 
   useEffect(() => {
@@ -56,7 +56,7 @@ const Captcha = ({ captchaTheme, fieldData, name, ...wrapProps }) => {
       <ReCAPTCHA
         onExpired={changeCaptchaToken}
         onLoad={() => setLoaded(true)}
-        onVerify={changeCaptchaToken}
+        onChange={changeCaptchaToken}
         ref={captchaRef}
         sitekey={process.env.GATSBY_RECAPTCHA_SITE_KEY}
         theme={captchaTheme || "light"}

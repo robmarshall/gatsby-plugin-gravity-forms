@@ -99,9 +99,9 @@ add_filter( 'graphql_response_headers_to_send', function( $headers ) {
 
 ## Implementing Google reCAPTCHA
 
-On your Gatsby project set up an Environment Variable named `GATSBY_RECAPTCHA_SITE_KEY` with your reCAPTCHA site key as value. This variable will be automatically used whenever Gravity Form that has a reCAPTCHA field.
+On your WordPress backend within the Gravity Forms settings set up reCaptcha. Follow the instructions provided by Gravity Forms.
 
-Upon responding to the captcha Google sends back a **reCAPTCHA response token** that gets stored in a hidden `<input>` on your form. When your form data is sent back to your Wordpress website(through a Lambda function), Gravity Forms will automatically [verify the reCAPTCHA token](https://developers.google.com/recaptcha/docs/verify) token to ensure it was sent by a human.
+Set up an Environment Variable named `GATSBY_RECAPTCHA_SITE_KEY` in your Gatsby project with your reCAPTCHA site key as value.
 
 ## Testing & Developing
 
