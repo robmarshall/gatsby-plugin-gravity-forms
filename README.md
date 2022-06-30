@@ -101,8 +101,6 @@ add_filter( 'graphql_response_headers_to_send', function( $headers ) {
 
 On your WordPress backend within the Gravity Forms settings set up reCaptcha. Follow the instructions provided by Gravity Forms.
 
-Set up an Environment Variable named `GATSBY_RECAPTCHA_SITE_KEY` in your Gatsby project with your reCAPTCHA site key as value.
-
 ## Testing & Developing
 
 Firstly, yes please! Any help would be great.

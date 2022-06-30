@@ -30,12 +30,10 @@ const GravityFormForm = ({
   errorCallback,
 }) => {
   // Split out data depending on how it is passed in.
-  let form;
-  if (data?.wpGfForm) {
-    form = data.wpGfForm;
-  } else {
-    form = data;
-  }
+  const form = data?.wpGfForm || data;
+
+  // Deconstruct global settings (if provided).
+  const settings = data?.wp?.gfSettings || {};
 
   const {
     submitButton,
@@ -191,6 +189,7 @@ const GravityFormForm = ({
                   formFields={formFields.nodes}
                   presetValues={presetValues}
                   labelPlacement={labelPlacement}
+                  settings={settings}
                 />
               </ul>
             </div>
@@ -270,6 +269,17 @@ export const GravityFormFields = graphql`
         ...SelectField
         ...TextAreaField
         ...TextField
+      }
+    }
+  }
+`;
+
+export const GravityFormSettings = graphql`
+  fragment GravityFormSettings on Wp {
+    gfSettings {
+      recaptcha {
+        publicKey
+        type
       }
     }
   }

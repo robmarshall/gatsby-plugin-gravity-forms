@@ -6,10 +6,10 @@ import ReCAPTCHA from "react-google-recaptcha";
 
 import InputWrapper from "../InputWrapper";
 
-const Captcha = ({ captchaTheme, fieldData, name, ...wrapProps }) => {
+const Captcha = ({ captchaTheme, fieldData, name, settings, ...wrapProps }) => {
   const { register, errors, setValue } = useFormContext();
 
-  if (!process.env.GATSBY_RECAPTCHA_SITE_KEY) {
+  if (!settings?.publicKey) {
     return (
       <div className="gravityform__captcha_notification">
         <p>
@@ -58,8 +58,9 @@ const Captcha = ({ captchaTheme, fieldData, name, ...wrapProps }) => {
         onLoad={() => setLoaded(true)}
         onChange={changeCaptchaToken}
         ref={captchaRef}
-        sitekey={process.env.GATSBY_RECAPTCHA_SITE_KEY}
+        sitekey={settings?.publicKey}
         theme={captchaTheme || "light"}
+        size={settings?.type === "INVISIBLE" ? "invisible" : "compact"}
       />
       <input
         name="g-recaptcha-response"

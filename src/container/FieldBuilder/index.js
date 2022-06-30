@@ -16,6 +16,7 @@ const FieldBuilder = ({
   formFields,
   formLoading,
   presetValues,
+  settings,
 }) => {
   // Loop through fields and create
   return formFields.map((field) => {
@@ -76,6 +77,7 @@ const FieldBuilder = ({
             gfId={id}
             name={inputName}
             wrapClassName={inputWrapperClass}
+            settings={settings?.recaptcha}
           />
         );
       case "HTML":
