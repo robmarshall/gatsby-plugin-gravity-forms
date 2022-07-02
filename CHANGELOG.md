@@ -1,5 +1,9 @@
 # Changelog
 
+## v3.1.0 - Added Invisible Gravity Forms reCaptcha
+
+- New fragment added, as well as support for the Invisible Google reCaptcha.
+
 ## v3.0.2 - Fixed errors, and added initial confirmation handling
 
 - The Gravity Form error object had slightly changed. This has been corrected.
