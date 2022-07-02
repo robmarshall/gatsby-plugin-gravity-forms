@@ -15,6 +15,7 @@ const FieldBuilder = ({
   databaseId,
   formFields,
   formLoading,
+  preOnSubmit,
   presetValues,
   settings,
 }) => {
@@ -73,11 +74,12 @@ const FieldBuilder = ({
           <Captcha
             captchaTheme={captchaTheme}
             fieldData={field}
-            key={id}
             gfId={id}
+            key={id}
             name={inputName}
-            wrapClassName={inputWrapperClass}
+            ref={preOnSubmit}
             settings={settings?.recaptcha}
+            wrapClassName={inputWrapperClass}
           />
         );
       case "HTML":

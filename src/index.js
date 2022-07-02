@@ -1,6 +1,6 @@
 import classnames from "classnames";
 import PropTypes from "prop-types";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import { graphql, navigate } from "gatsby";
 import { useMutation } from "@apollo/client";
 import { useForm, FormProvider } from "react-hook-form";
@@ -29,6 +29,8 @@ const GravityFormForm = ({
   successCallback,
   errorCallback,
 }) => {
+  const preOnSubmit = useRef();
+
   // Split out data depending on how it is passed in.
   const form = data?.wpGfForm || data;
 
@@ -62,15 +64,20 @@ const GravityFormForm = ({
     handleSubmit,
     setError,
     reset,
+    getValues,
     formState: { errors },
   } = methods;
 
   const [generalError, setGeneralError] = useState("");
 
-  const onSubmitCallback = async (values) => {
+  const onSubmitCallback = async () => {
     // Make sure we are not already waiting for a response
     if (!loading) {
       // Clean error
+
+      await preOnSubmit?.current?.recaptcha();
+
+      const values = getValues();
 
       // Check that at least one field has been filled in
       if (submissionHasOneFieldEntry(values)) {
@@ -187,8 +194,9 @@ const GravityFormForm = ({
                   databaseId={databaseId}
                   formLoading={loading}
                   formFields={formFields.nodes}
-                  presetValues={presetValues}
                   labelPlacement={labelPlacement}
+                  preOnSubmit={preOnSubmit}
+                  presetValues={presetValues}
                   settings={settings}
                 />
               </ul>
