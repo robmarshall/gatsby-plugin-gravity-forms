@@ -38,8 +38,8 @@ const Select = ({ fieldData, name, defaultValue, ...wrapProps }) => {
           required: isRequired && "This field is required",
         })}
         defaultValue={
-          defaultValue
-            ? defaultValue === value
+          defaultValue !== ""
+            ? defaultValue
             : choices.find((choice) => choice.isSelected)?.value
         }
       >
