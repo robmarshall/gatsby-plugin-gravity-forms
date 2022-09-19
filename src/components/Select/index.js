@@ -41,7 +41,7 @@ const Select = ({ fieldData, name, defaultValue, ...wrapProps }) => {
         {choices.map(({ isSelected, text, value }, index) => {
           return (
             <option
-              defaultValue={defaultValue ? defaultValue === value : isSelected}
+              selected={defaultValue ? defaultValue === value : isSelected ? "selected" : false}
               key={`${name}-${index}`}
               value={value}
               >
