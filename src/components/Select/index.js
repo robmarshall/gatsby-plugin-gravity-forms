@@ -20,7 +20,7 @@ const Select = ({ fieldData, name, defaultValue, ...wrapProps }) => {
       inputData={fieldData}
       labelFor={name}
       {...wrapProps}
-      >
+    >
       <select
         aria-invalid={errors}
         aria-required={isRequired}
@@ -40,7 +40,7 @@ const Select = ({ fieldData, name, defaultValue, ...wrapProps }) => {
         defaultValue={
           defaultValue
             ? defaultValue === value
-            : choices.find((choice) => choice.isSelected).value
+            : choices.find((choice) => choice.isSelected)?.value
         }
       >
         {choices.map(({ text, value }, index) => {
