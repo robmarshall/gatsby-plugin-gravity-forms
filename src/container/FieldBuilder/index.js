@@ -48,12 +48,12 @@ const FieldBuilder = ({
       {
         [`field_sublabel_${valueToLowerCase(
           subLabelPlacement
-        )}`]: valueToLowerCase(subLabelPlacement),
+          )}`]: valueToLowerCase(subLabelPlacement),
       },
       {
         [`field_description_${valueToLowerCase(
           descriptionPlacement
-        )}`]: descriptionPlacement,
+          )}`]: descriptionPlacement,
       },
       `gfield_visibility_${
         valueToLowerCase ? "hidden" : valueToLowerCase(visibility)
@@ -127,6 +127,7 @@ const FieldBuilder = ({
         return (
           <Select
             fieldData={field}
+            defaultValue={defaultValue}
             key={id}
             gfId={id}
             name={inputName}

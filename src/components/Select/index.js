@@ -6,7 +6,7 @@ import { useFormContext } from "react-hook-form";
 import InputWrapper from "../../components/InputWrapper";
 import { valueToLowerCase } from "../../utils/helpers";
 
-const Select = ({ fieldData, name, ...wrapProps }) => {
+const Select = ({ fieldData, name, defaultValue, ...wrapProps }) => {
   const { choices, cssClass, isRequired, size } = fieldData;
 
   const {
@@ -20,7 +20,7 @@ const Select = ({ fieldData, name, ...wrapProps }) => {
       inputData={fieldData}
       labelFor={name}
       {...wrapProps}
-    >
+      >
       <select
         aria-invalid={errors}
         aria-required={isRequired}
@@ -37,14 +37,14 @@ const Select = ({ fieldData, name, ...wrapProps }) => {
         {...register(name, {
           required: isRequired && "This field is required",
         })}
-      >
+        >
         {choices.map(({ isSelected, text, value }, index) => {
           return (
             <option
-              defaultValue={isSelected}
+              defaultValue={defaultValue ? defaultValue === value : isSelected}
               key={`${name}-${index}`}
               value={value}
-            >
+              >
               {text}
             </option>
           );
