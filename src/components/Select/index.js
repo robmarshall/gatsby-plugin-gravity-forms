@@ -20,7 +20,7 @@ const Select = ({ fieldData, name, defaultValue, ...wrapProps }) => {
       inputData={fieldData}
       labelFor={name}
       {...wrapProps}
-      >
+    >
       <select
         aria-invalid={errors}
         aria-required={isRequired}
@@ -37,14 +37,14 @@ const Select = ({ fieldData, name, defaultValue, ...wrapProps }) => {
         {...register(name, {
           required: isRequired && "This field is required",
         })}
-        >
+      >
         {choices.map(({ isSelected, text, value }, index) => {
           return (
             <option
               selected={defaultValue ? defaultValue === value : isSelected ? "selected" : false}
               key={`${name}-${index}`}
               value={value}
-              >
+            >
               {text}
             </option>
           );
