@@ -110,7 +110,7 @@ const GravityFormForm = ({
             }
           })
           .catch((error) => {
-            // there is an issue on safari with parsing
+            // There is an Issue with Safari when parsing the Response
             if (
               error.message ===
               'JSON Parse error: Unexpected identifier "object"'
@@ -119,10 +119,10 @@ const GravityFormForm = ({
                 data: formRes,
                 reset,
               });
+            } else {
+              setGeneralError("unknownError");
+              errorCallback({ data: formRes, error, reset });
             }
-
-            setGeneralError("unknownError");
-            errorCallback({ data: formRes, error, reset });
           });
       } else {
         setGeneralError("leastOneField");
