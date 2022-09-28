@@ -49,9 +49,8 @@ const GravityFormForm = ({
     title,
   } = form;
 
-  const [submitForm, { data: submittionData, loading }] = useMutation(
-    submitMutation
-  );
+  const [submitForm, { data: submittionData, loading }] =
+    useMutation(submitMutation);
 
   const hasBeenSubmitted = Boolean(submittionData?.submitGfForm);
   const haveFieldErrors = Boolean(submittionData?.submitGfForm?.errors?.length);
@@ -111,6 +110,17 @@ const GravityFormForm = ({
             }
           })
           .catch((error) => {
+            // there is an issue on safari with parsing
+            if (
+              error.message ===
+              'JSON Parse error: Unexpected identifier "object"'
+            ) {
+              successCallback({
+                data: formRes,
+                reset,
+              });
+            }
+
             setGeneralError("unknownError");
             errorCallback({ data: formRes, error, reset });
           });
@@ -173,23 +183,20 @@ const GravityFormForm = ({
             }
             id={`gform_${databaseId}`}
             key={`gform_-${databaseId}`}
-            onSubmit={handleSubmit(onSubmitCallback)}
-          >
+            onSubmit={handleSubmit(onSubmitCallback)}>
             {generalError && <FormGeneralError errorCode={generalError} />}
             <div className="gform_body">
               <ul
                 className={classnames(
                   "gform_fields",
                   {
-                    [`form_sublabel_${valueToLowerCase(
-                      subLabelPlacement
-                    )}`]: valueToLowerCase(subLabelPlacement),
+                    [`form_sublabel_${valueToLowerCase(subLabelPlacement)}`]:
+                      valueToLowerCase(subLabelPlacement),
                   },
                   `description_${valueToLowerCase(descriptionPlacement)}`,
                   `${valueToLowerCase(labelPlacement)}`
                 )}
-                id={`gform_fields_${databaseId}`}
-              >
+                id={`gform_fields_${databaseId}`}>
                 <FieldBuilder
                   databaseId={databaseId}
                   formLoading={loading}
@@ -207,8 +214,7 @@ const GravityFormForm = ({
                 className="gravityform__button gform_button button"
                 disabled={loading}
                 id={`gform_submit_button_${databaseId}`}
-                type="submit"
-              >
+                type="submit">
                 {loading ? (
                   <span className="gravityform__button__loading_span">
                     Loading
