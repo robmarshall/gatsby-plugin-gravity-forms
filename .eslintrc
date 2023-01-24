@@ -19,7 +19,6 @@
     },
     "extends": ["eslint:recommended", "plugin:react/recommended"],
     "plugins": [
-        "eslint-plugin-import-order-alphabetical",
         "sort-destructure-keys"
     ]
 }
