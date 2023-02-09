@@ -6,7 +6,7 @@ import { useFormContext } from "react-hook-form";
 import InputWrapper from "../../components/InputWrapper";
 import { valueToLowerCase } from "../../utils/helpers";
 
-const Select = ({ fieldData, name, ...wrapProps }) => {
+const Select = ({ fieldData, name, defaultValue, ...wrapProps }) => {
   const { choices, cssClass, isRequired, size } = fieldData;
 
   const {
@@ -37,14 +37,15 @@ const Select = ({ fieldData, name, ...wrapProps }) => {
         {...register(name, {
           required: isRequired && "This field is required",
         })}
+        defaultValue={
+          defaultValue !== ""
+            ? defaultValue
+            : choices.find((choice) => choice.isSelected)?.value
+        }
       >
-        {choices.map(({ isSelected, text, value }, index) => {
+        {choices.map(({ text, value }, index) => {
           return (
-            <option
-              defaultValue={isSelected}
-              key={`${name}-${index}`}
-              value={value}
-            >
+            <option key={`${name}-${index}`} value={value}>
               {text}
             </option>
           );
@@ -57,6 +58,7 @@ const Select = ({ fieldData, name, ...wrapProps }) => {
 export default Select;
 
 Select.propTypes = {
+  defaultValue: PropTypes.string,
   fieldData: PropTypes.shape({
     choices: PropTypes.array,
     cssClass: PropTypes.string,

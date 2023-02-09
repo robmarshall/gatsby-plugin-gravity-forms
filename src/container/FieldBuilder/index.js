@@ -127,6 +127,7 @@ const FieldBuilder = ({
         return (
           <Select
             fieldData={field}
+            defaultValue={defaultValue}
             key={id}
             gfId={id}
             name={inputName}
